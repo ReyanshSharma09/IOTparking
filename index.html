@@ -6,7 +6,7 @@
     <title>ParkSmart Pro | Luxury Parking Intelligence</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Source+Code+Pro:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
         * {
             margin: 0;
@@ -15,22 +15,21 @@
         }
 
         :root {
-            --luxury-dark: #0a0f1e;
-            --luxury-darker: #050810;
-            --luxury-card: #0f1729;
-            --luxury-elevated: #141d33;
+            --luxury-black: #0a0e1a;
+            --luxury-dark: #0f1419;
+            --luxury-card: #141b26;
+            --luxury-elevated: #1a2332;
             
             --gold: #d4af37;
             --gold-light: #f4d03f;
             --gold-dark: #b8941f;
-            --gold-glow: rgba(212, 175, 55, 0.4);
+            --gold-glow: rgba(212, 175, 55, 0.5);
             
             --platinum: #e5e4e2;
-            --platinum-glow: rgba(229, 228, 226, 0.3);
+            --diamond: #b9f2ff;
             
             --sapphire: #0f52ba;
             --sapphire-light: #1e90ff;
-            --sapphire-glow: rgba(15, 82, 186, 0.4);
             
             --emerald: #50c878;
             --ruby: #e0115f;
@@ -39,86 +38,89 @@
             --text-primary: #ffffff;
             --text-secondary: #c7d5e0;
             --text-muted: #8a9bb0;
-            
-            --border-luxury: rgba(212, 175, 55, 0.2);
-            --glass-bg: rgba(15, 23, 41, 0.6);
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: var(--luxury-dark);
+            font-family: 'Outfit', sans-serif;
+            background: var(--luxury-black);
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* Animated Particles Background */
-        .particles-background {
+        /* Ultra Smooth Animated Background */
+        .ultra-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
             z-index: 0;
             pointer-events: none;
+        }
+
+        .animated-gradient {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 10% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 40%),
+                radial-gradient(ellipse at 90% 80%, rgba(15, 82, 186, 0.12) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(80, 200, 120, 0.08) 0%, transparent 50%);
+            animation: gradientMove 20s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .floating-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
         }
 
         .particle {
             position: absolute;
-            width: 2px;
-            height: 2px;
+            width: 3px;
+            height: 3px;
             background: var(--gold);
             border-radius: 50%;
-            opacity: 0.4;
-            animation: float-particle 20s infinite linear;
+            box-shadow: 0 0 10px var(--gold-glow);
+            animation: floatParticle linear infinite;
         }
 
-        @keyframes float-particle {
+        @keyframes floatParticle {
             0% {
-                transform: translateY(100vh) translateX(0);
+                transform: translateY(100vh) translateX(0) scale(0);
                 opacity: 0;
             }
             10% {
-                opacity: 0.4;
+                opacity: 1;
             }
             90% {
-                opacity: 0.4;
+                opacity: 1;
             }
             100% {
-                transform: translateY(-100px) translateX(100px);
+                transform: translateY(-100px) translateX(50px) scale(1);
                 opacity: 0;
             }
         }
 
-        /* Luxury Grid */
-        .luxury-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .mesh-gradient {
+            position: absolute;
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(212, 175, 55, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(212, 175, 55, 0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
-            z-index: 0;
-            pointer-events: none;
+                repeating-linear-gradient(0deg, rgba(212, 175, 55, 0.03) 0px, transparent 1px, transparent 40px, rgba(212, 175, 55, 0.03) 41px),
+                repeating-linear-gradient(90deg, rgba(212, 175, 55, 0.03) 0px, transparent 1px, transparent 40px, rgba(212, 175, 55, 0.03) 41px);
+            animation: meshMove 30s linear infinite;
         }
 
-        /* Radial Glow */
-        .radial-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(ellipse at 20% 20%, rgba(212, 175, 55, 0.1), transparent 40%),
-                radial-gradient(ellipse at 80% 80%, rgba(15, 82, 186, 0.08), transparent 40%);
-            z-index: 0;
-            pointer-events: none;
+        @keyframes meshMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
         }
 
         /* Content Wrapper */
@@ -127,19 +129,31 @@
             z-index: 1;
         }
 
-        /* Premium Header */
-        .premium-header {
-            background: linear-gradient(180deg, rgba(15, 23, 41, 0.95) 0%, rgba(15, 23, 41, 0.8) 100%);
-            backdrop-filter: blur(30px);
-            border-bottom: 1px solid var(--border-luxury);
-            padding: 1rem 0;
+        /* Elite Header */
+        .elite-header {
+            background: linear-gradient(180deg, rgba(20, 27, 38, 0.98) 0%, rgba(20, 27, 38, 0.85) 100%);
+            backdrop-filter: blur(40px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 1.5rem 0;
             position: sticky;
             top: 0;
             z-index: 1001;
             box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+            animation: slideDown 0.8s ease;
         }
 
-        .premium-header .container {
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .elite-header .container {
             max-width: 1800px;
             margin: 0 auto;
             padding: 0 3rem;
@@ -148,25 +162,36 @@
             align-items: center;
         }
 
-        .luxury-logo {
+        .elite-logo {
             display: flex;
             align-items: center;
             gap: 1.5rem;
             text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .elite-logo:hover {
+            transform: scale(1.05);
         }
 
         .logo-emblem {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            border-radius: 12px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            box-shadow: 0 10px 40px var(--gold-glow);
+            font-size: 2.5rem;
+            box-shadow: 0 15px 50px var(--gold-glow);
             position: relative;
             overflow: hidden;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
         }
 
         .logo-emblem::before {
@@ -176,11 +201,11 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: logo-shine 3s infinite;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: logoShine 3s linear infinite;
         }
 
-        @keyframes logo-shine {
+        @keyframes logoShine {
             0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
             100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
@@ -191,21 +216,29 @@
         }
 
         .logo-brand {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--gold), var(--platinum));
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold), var(--platinum), var(--diamond));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            letter-spacing: 1px;
+            background-size: 200% 200%;
+            animation: textGradient 5s ease infinite;
+            letter-spacing: 2px;
+        }
+
+        @keyframes textGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .logo-tagline {
             font-size: 0.75rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
+            font-weight: 300;
         }
 
         .header-status {
@@ -217,56 +250,54 @@
         .status-item {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 1rem;
             padding: 0.75rem 1.5rem;
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px solid var(--border-luxury);
-            border-radius: 8px;
-            transition: all 0.3s;
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
         }
 
         .status-item:hover {
-            background: rgba(212, 175, 55, 0.1);
-            transform: translateY(-2px);
+            background: rgba(212, 175, 55, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px var(--gold-glow);
         }
 
-        .status-icon {
-            width: 10px;
-            height: 10px;
+        .status-dot {
+            width: 12px;
+            height: 12px;
             background: var(--emerald);
             border-radius: 50%;
-            box-shadow: 0 0 15px var(--emerald);
-            animation: pulse-glow 2s infinite;
+            box-shadow: 0 0 20px var(--emerald);
+            animation: statusPulse 2s ease infinite;
         }
 
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 1; box-shadow: 0 0 15px var(--emerald); }
-            50% { opacity: 0.6; box-shadow: 0 0 5px var(--emerald); }
+        @keyframes statusPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
         }
 
-        .status-text {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .luxury-time {
-            font-family: 'Source Code Pro', monospace;
-            font-size: 1.5rem;
+        .elite-time {
+            font-family: 'Outfit', monospace;
+            font-size: 1.75rem;
+            font-weight: 600;
             color: var(--gold);
-            text-shadow: 0 0 20px var(--gold-glow);
-            letter-spacing: 2px;
+            text-shadow: 0 0 30px var(--gold-glow);
+            letter-spacing: 3px;
         }
 
         /* Navigation */
         nav {
-            background: linear-gradient(180deg, rgba(20, 29, 51, 0.9) 0%, rgba(20, 29, 51, 0.7) 100%);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-luxury);
+            background: linear-gradient(180deg, rgba(26, 35, 50, 0.95) 0%, rgba(26, 35, 50, 0.8) 100%);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
             padding: 1.5rem 0;
             position: sticky;
-            top: 88px;
+            top: 110px;
             z-index: 1000;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
         }
 
         nav .container {
@@ -275,48 +306,66 @@
             padding: 0 3rem;
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 4rem;
+            gap: 5rem;
         }
 
         nav a {
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s;
+            font-size: 1rem;
+            transition: all 0.4s ease;
             position: relative;
-            padding: 0.5rem 0;
+            padding: 0.75rem 0;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
         }
 
-        nav a::after {
+        nav a::before {
             content: '';
             position: absolute;
             bottom: 0;
             left: 50%;
             width: 0;
-            height: 2px;
+            height: 3px;
             background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            transition: all 0.3s;
+            transition: all 0.4s ease;
             transform: translateX(-50%);
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        nav a:hover::before,
+        nav a.active::before {
+            width: 100%;
+        }
+
+        nav a:hover::after,
+        nav a.active::after {
+            opacity: 1;
         }
 
         nav a:hover,
         nav a.active {
             color: var(--gold);
-            text-shadow: 0 0 10px var(--gold-glow);
-        }
-
-        nav a:hover::after,
-        nav a.active::after {
-            width: 100%;
+            text-shadow: 0 0 20px var(--gold-glow);
+            transform: translateY(-2px);
         }
 
         /* Hero Section */
         .hero {
-            padding: 6rem 3rem;
+            padding: 8rem 3rem;
             position: relative;
         }
 
@@ -324,68 +373,100 @@
             max-width: 1800px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 5rem;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 6rem;
             align-items: start;
         }
 
-        .hero-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 5rem;
-            line-height: 1.1;
-            margin-bottom: 2rem;
-            font-weight: 800;
-            letter-spacing: -1px;
+        .hero-content {
+            animation: fadeInUp 1s ease;
         }
 
-        .luxury-gradient {
-            background: linear-gradient(135deg, var(--gold), var(--platinum), var(--sapphire-light));
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 6rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+        }
+
+        .luxury-gradient-text {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--platinum) 50%, var(--diamond) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             background-size: 200% 200%;
-            animation: gradient-luxury 5s ease infinite;
+            animation: gradientFlow 8s ease infinite;
+            position: relative;
+            display: inline-block;
         }
 
-        @keyframes gradient-luxury {
+        @keyframes gradientFlow {
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
         }
 
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            line-height: 1.8;
-            font-weight: 300;
-        }
-
-        /* Premium Protocol Box */
-        .premium-protocol {
-            background: linear-gradient(135deg, rgba(224, 17, 95, 0.1), rgba(255, 191, 0, 0.05));
-            border: 1px solid rgba(224, 17, 95, 0.3);
-            border-left: 4px solid var(--ruby);
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 3rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .premium-protocol::before {
-            content: '';
+        .luxury-gradient-text::after {
+            content: attr(data-text);
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(224, 17, 95, 0.05), transparent);
-            animation: protocol-scan 3s infinite;
+            z-index: -1;
+            background: linear-gradient(135deg, var(--gold), var(--platinum));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: blur(20px);
+            opacity: 0.5;
         }
 
-        @keyframes protocol-scan {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            line-height: 1.9;
+            font-weight: 300;
+        }
+
+        /* Elite Protocol */
+        .elite-protocol {
+            background: linear-gradient(135deg, rgba(224, 17, 95, 0.12), rgba(255, 191, 0, 0.08));
+            border: 2px solid rgba(224, 17, 95, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(224, 17, 95, 0.2);
+        }
+
+        .elite-protocol::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(224, 17, 95, 0.15), transparent);
+            animation: protocolScan 4s ease infinite;
+        }
+
+        @keyframes protocolScan {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
 
         .protocol-header {
@@ -395,115 +476,127 @@
             margin-bottom: 1.5rem;
             font-weight: 700;
             color: var(--ruby);
-            font-size: 0.9rem;
+            font-size: 1rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
 
         .protocol-content {
-            font-size: 1.15rem;
-            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
             font-weight: 500;
         }
 
         .protocol-timer {
-            font-family: 'Source Code Pro', monospace;
-            font-size: 3.5rem;
+            font-family: 'Outfit', monospace;
+            font-size: 4rem;
             font-weight: 900;
             color: var(--ruby);
-            text-shadow: 0 0 30px rgba(224, 17, 95, 0.6);
-            margin: 1rem 0;
-            letter-spacing: 3px;
+            text-shadow: 0 0 40px rgba(224, 17, 95, 0.8);
+            margin: 1.5rem 0;
+            letter-spacing: 4px;
         }
 
-        /* Luxury Stats */
-        .luxury-stats {
+        /* Elite Stats */
+        .elite-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
+            gap: 2.5rem;
+            margin-top: 4rem;
         }
 
-        .luxury-stat {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(15, 82, 186, 0.05));
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-luxury);
-            border-radius: 16px;
-            padding: 2rem;
+        .elite-stat {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(15, 82, 186, 0.08));
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
             text-align: center;
-            transition: all 0.4s;
+            transition: all 0.5s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .luxury-stat::before {
+        .elite-stat::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.1), transparent 70%);
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15), transparent 60%);
             opacity: 0;
-            transition: opacity 0.4s;
+            transition: all 0.5s ease;
+            animation: rotate360 10s linear infinite;
         }
 
-        .luxury-stat:hover::before {
-            opacity: 1;
-            animation: rotate-glow 3s linear infinite;
-        }
-
-        @keyframes rotate-glow {
+        @keyframes rotate360 {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        .luxury-stat:hover {
-            transform: translateY(-10px);
+        .elite-stat:hover::before {
+            opacity: 1;
+        }
+
+        .elite-stat:hover {
+            transform: translateY(-15px) scale(1.05);
             border-color: var(--gold);
-            box-shadow: 0 20px 60px var(--gold-glow);
+            box-shadow: 0 30px 80px var(--gold-glow);
         }
 
         .stat-value {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4.5rem;
             font-weight: 800;
             background: linear-gradient(135deg, var(--gold), var(--gold-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
         }
 
         .stat-label {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Premium Interface */
-        .premium-interface {
-            background: linear-gradient(135deg, rgba(15, 23, 41, 0.9), rgba(20, 29, 51, 0.8));
-            backdrop-filter: blur(30px);
-            border: 1px solid var(--border-luxury);
-            border-radius: 24px;
-            padding: 3rem;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+        /* Elite Interface */
+        .elite-interface {
+            background: linear-gradient(135deg, rgba(20, 27, 38, 0.95), rgba(26, 35, 50, 0.9));
+            backdrop-filter: blur(40px);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 30px;
+            padding: 3.5rem;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
             position: relative;
             overflow: hidden;
+            animation: fadeInUp 1s ease 0.3s backwards;
         }
 
-        .premium-interface::before {
+        .elite-interface::before {
             content: '';
             position: absolute;
             top: 0;
             right: 0;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.15), transparent 70%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2), transparent 70%);
             border-radius: 50%;
-            filter: blur(40px);
+            filter: blur(60px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-20px, -20px); }
         }
 
         .interface-header {
@@ -511,15 +604,15 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 3rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-luxury);
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
             position: relative;
             z-index: 1;
         }
 
         .interface-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
             font-weight: 700;
             background: linear-gradient(135deg, var(--gold), var(--platinum));
             -webkit-background-clip: text;
@@ -528,20 +621,26 @@
         }
 
         .interface-status {
-            padding: 0.6rem 1.5rem;
-            background: rgba(80, 200, 120, 0.1);
-            border: 1px solid var(--emerald);
-            border-radius: 25px;
-            font-size: 0.85rem;
+            padding: 0.75rem 2rem;
+            background: rgba(80, 200, 120, 0.15);
+            border: 2px solid var(--emerald);
+            border-radius: 50px;
+            font-size: 0.9rem;
             color: var(--emerald);
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 0 20px rgba(80, 200, 120, 0.2);
+            letter-spacing: 2px;
+            box-shadow: 0 0 30px rgba(80, 200, 120, 0.3);
+            animation: statusGlow 2s ease infinite;
+        }
+
+        @keyframes statusGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(80, 200, 120, 0.3); }
+            50% { box-shadow: 0 0 50px rgba(80, 200, 120, 0.6); }
         }
 
         /* Form Elements */
-        .premium-form {
+        .elite-form {
             display: flex;
             flex-direction: column;
             gap: 2rem;
@@ -551,38 +650,58 @@
 
         .form-group {
             position: relative;
+            animation: slideInLeft 0.6s ease backwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .form-group label {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--gold);
             margin-bottom: 1rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 1.25rem 1.5rem;
-            background: rgba(10, 15, 30, 0.6);
-            border: 1px solid var(--border-luxury);
-            border-radius: 12px;
+            padding: 1.5rem 1.75rem;
+            background: rgba(10, 14, 26, 0.7);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
             color: var(--text-primary);
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 500;
-            transition: all 0.3s;
-            font-family: 'Montserrat', sans-serif;
+            transition: all 0.4s ease;
+            font-family: 'Outfit', sans-serif;
         }
 
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
             border-color: var(--gold);
-            box-shadow: 0 0 30px var(--gold-glow);
-            background: rgba(10, 15, 30, 0.9);
+            box-shadow: 0 0 40px var(--gold-glow);
+            background: rgba(10, 14, 26, 0.95);
+            transform: translateY(-2px);
         }
 
         .form-group input::placeholder {
@@ -592,105 +711,133 @@
 
         /* Tier Info */
         .tier-info {
-            background: rgba(212, 175, 55, 0.03);
-            border: 1px solid var(--border-luxury);
-            border-radius: 12px;
-            padding: 1.5rem;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
             margin-top: 1rem;
             display: none;
+            backdrop-filter: blur(10px);
         }
 
         .tier-info.active {
             display: block;
-            animation: luxuryFadeIn 0.5s ease;
+            animation: expandIn 0.5s ease;
         }
 
-        @keyframes luxuryFadeIn {
+        @keyframes expandIn {
             from {
                 opacity: 0;
-                transform: translateY(-15px);
+                max-height: 0;
+                transform: scaleY(0);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                max-height: 500px;
+                transform: scaleY(1);
             }
         }
 
         .tier-features {
             display: grid;
-            gap: 1rem;
+            gap: 1.25rem;
         }
 
         .tier-feature {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.25rem;
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .tier-feature:hover {
+            color: var(--gold);
+            transform: translateX(10px);
         }
 
         .tier-feature i {
             color: var(--gold);
-            font-size: 1.1rem;
+            font-size: 1.25rem;
         }
 
-        /* Luxury Buttons */
-        .luxury-btn {
-            padding: 1.5rem 3rem;
+        /* Elite Buttons */
+        .elite-btn {
+            padding: 1.75rem 3.5rem;
             border: none;
-            border-radius: 12px;
-            font-size: 1.05rem;
+            border-radius: 15px;
+            font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.4s;
+            transition: all 0.5s ease;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 1rem;
+            gap: 1.25rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             position: relative;
             overflow: hidden;
         }
 
-        .luxury-btn::before {
+        .elite-btn::before {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             width: 0;
             height: 0;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+            transition: width 0.8s, height 0.8s;
         }
 
-        .luxury-btn:hover::before {
-            width: 300px;
-            height: 300px;
+        .elite-btn:hover::before {
+            width: 400px;
+            height: 400px;
         }
 
-        .luxury-btn-primary {
+        .elite-btn-primary {
             background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            color: var(--luxury-darker);
-            box-shadow: 0 10px 40px var(--gold-glow);
-        }
-
-        .luxury-btn-primary:hover {
-            transform: translateY(-3px);
+            color: var(--luxury-black);
             box-shadow: 0 15px 50px var(--gold-glow);
+            position: relative;
+            z-index: 1;
         }
 
-        .luxury-btn-secondary {
+        .elite-btn-primary:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 70px var(--gold-glow);
+        }
+
+        .elite-btn-primary::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: buttonShine 3s linear infinite;
+        }
+
+        @keyframes buttonShine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .elite-btn-secondary {
             background: transparent;
             border: 2px solid var(--gold);
             color: var(--gold);
         }
 
-        .luxury-btn-secondary:hover {
-            background: rgba(212, 175, 55, 0.1);
-            box-shadow: 0 10px 30px var(--gold-glow);
+        .elite-btn-secondary:hover {
+            background: rgba(212, 175, 55, 0.15);
+            box-shadow: 0 15px 40px var(--gold-glow);
+            transform: translateY(-3px);
         }
 
         /* Results Section */
@@ -701,44 +848,39 @@
 
         .results-section.active {
             display: block;
-            animation: luxuryFadeIn 0.5s ease;
+            animation: fadeInUp 0.6s ease;
         }
 
         .results-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-luxury);
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
         }
 
         .results-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.75rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.25rem;
             font-weight: 700;
             color: var(--gold);
-        }
-
-        .results-count {
-            color: var(--text-secondary);
-            font-weight: 600;
         }
 
         /* Location Cards */
         .locations-grid {
             display: grid;
-            gap: 1.5rem;
+            gap: 2rem;
         }
 
         .location-card {
-            background: linear-gradient(135deg, rgba(15, 23, 41, 0.6), rgba(20, 29, 51, 0.4));
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-luxury);
-            border-radius: 16px;
-            padding: 2rem;
+            background: linear-gradient(135deg, rgba(20, 27, 38, 0.7), rgba(26, 35, 50, 0.5));
+            backdrop-filter: blur(30px);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
             cursor: pointer;
-            transition: all 0.4s;
+            transition: all 0.5s ease;
             position: relative;
             overflow: hidden;
         }
@@ -750,8 +892,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-            transition: left 0.6s;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.15), transparent);
+            transition: left 0.8s ease;
         }
 
         .location-card:hover::before {
@@ -759,72 +901,29 @@
         }
 
         .location-card:hover {
-            transform: translateX(10px);
+            transform: translateX(15px) scale(1.02);
             border-color: var(--gold);
-            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 30px 80px rgba(212, 175, 55, 0.3);
         }
 
         .location-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .location-address {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .location-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .detail-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .detail-item i {
-            color: var(--gold);
-        }
-
-        .availability-badge {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            padding: 0.6rem 1.5rem;
-            border-radius: 25px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .availability-badge.available {
-            background: rgba(80, 200, 120, 0.1);
-            color: var(--emerald);
-            border: 1px solid var(--emerald);
+            margin-bottom: 0.75rem;
         }
 
         /* Modal */
-        .luxury-modal {
+        .elite-modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(15px);
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
             z-index: 3000;
             justify-content: center;
             align-items: center;
@@ -832,127 +931,153 @@
             overflow-y: auto;
         }
 
-        .luxury-modal.active {
+        .elite-modal.active {
             display: flex;
-            animation: luxuryFadeIn 0.3s ease;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal-container {
             background: linear-gradient(135deg, var(--luxury-card), var(--luxury-elevated));
-            border: 1px solid var(--border-luxury);
-            border-radius: 24px;
-            padding: 3rem;
-            max-width: 1400px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 30px;
+            padding: 4rem;
+            max-width: 1500px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
-            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 40px 120px rgba(0, 0, 0, 0.9);
+            animation: modalZoom 0.5s ease;
+        }
+
+        @keyframes modalZoom {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .modal-close {
             position: absolute;
-            top: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            background: rgba(224, 17, 95, 0.1);
-            border: 1px solid var(--ruby);
+            top: 2.5rem;
+            right: 2.5rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background: rgba(224, 17, 95, 0.15);
+            border: 2px solid var(--ruby);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.4s ease;
             color: var(--ruby);
-            font-size: 1.5rem;
+            font-size: 2rem;
         }
 
         .modal-close:hover {
             background: var(--ruby);
             color: white;
-            transform: rotate(90deg);
-        }
-
-        .modal-header {
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid var(--border-luxury);
-        }
-
-        .modal-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--gold), var(--platinum));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
+            transform: rotate(180deg) scale(1.1);
+            box-shadow: 0 10px 40px rgba(224, 17, 95, 0.5);
         }
 
         /* Tier Filter */
         .tier-filter {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
+            gap: 2rem;
             margin-bottom: 3rem;
-            padding: 2rem;
-            background: rgba(10, 15, 30, 0.4);
-            border: 1px solid var(--border-luxury);
-            border-radius: 16px;
+            padding: 2.5rem;
+            background: rgba(10, 14, 26, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
         }
 
         .tier-filter-btn {
-            padding: 1.25rem;
-            border: 1px solid var(--border-luxury);
+            padding: 1.5rem;
+            border: 2px solid rgba(212, 175, 55, 0.3);
             background: transparent;
-            border-radius: 12px;
+            border-radius: 15px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.4s ease;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             color: var(--text-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tier-filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .tier-filter-btn:hover::before {
+            left: 100%;
         }
 
         .tier-filter-btn:hover {
             border-color: var(--gold);
-            background: rgba(212, 175, 55, 0.05);
+            transform: translateY(-5px);
         }
 
         .tier-filter-btn.active {
             background: linear-gradient(135deg, var(--gold), var(--gold-light));
             border-color: var(--gold);
-            color: var(--luxury-darker);
-            box-shadow: 0 10px 30px var(--gold-glow);
+            color: var(--luxury-black);
+            box-shadow: 0 15px 50px var(--gold-glow);
+            transform: translateY(-5px);
         }
 
         /* Floor Cards */
         .floors-grid {
             display: grid;
-            gap: 2.5rem;
+            gap: 3rem;
         }
 
         .floor-card {
-            background: rgba(15, 23, 41, 0.4);
-            border: 1px solid var(--border-luxury);
-            border-radius: 16px;
-            padding: 2rem;
+            background: rgba(20, 27, 38, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+        }
+
+        .floor-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
         }
 
         .floor-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-luxury);
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
         }
 
         .floor-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.75rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.25rem;
             font-weight: 700;
             color: var(--gold);
         }
@@ -960,45 +1085,46 @@
         /* Parking Spots */
         .spots-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, 80px);
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, 85px);
+            gap: 18px;
             justify-content: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .parking-spot {
-            width: 80px;
-            height: 80px;
-            border: 1px solid var(--border-luxury);
-            border-radius: 12px;
+            width: 85px;
+            height: 85px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 700;
             cursor: pointer;
             position: relative;
-            transition: all 0.3s;
-            background: rgba(10, 15, 30, 0.4);
+            transition: all 0.4s ease;
+            background: rgba(10, 14, 26, 0.5);
+            backdrop-filter: blur(10px);
         }
 
         .parking-spot.available {
-            background: rgba(80, 200, 120, 0.1);
+            background: rgba(80, 200, 120, 0.15);
             border-color: var(--emerald);
             color: var(--emerald);
         }
 
         .parking-spot.available:hover {
             background: var(--emerald);
-            color: var(--luxury-darker);
-            transform: scale(1.2);
-            box-shadow: 0 10px 40px rgba(80, 200, 120, 0.4);
+            color: var(--luxury-black);
+            transform: scale(1.25) rotate(-5deg);
+            box-shadow: 0 15px 50px rgba(80, 200, 120, 0.5);
             z-index: 10;
         }
 
         .parking-spot.occupied {
-            background: rgba(224, 17, 95, 0.1);
+            background: rgba(224, 17, 95, 0.15);
             border-color: var(--ruby);
             color: var(--ruby);
             cursor: not-allowed;
@@ -1010,18 +1136,19 @@
         }
 
         .spot-icon {
-            font-size: 2rem;
-            margin-bottom: 0.25rem;
+            font-size: 2.25rem;
+            margin-bottom: 0.5rem;
         }
 
         .tier-dot {
             position: absolute;
             top: 8px;
             right: 8px;
-            width: 14px;
-            height: 14px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             border: 2px solid var(--luxury-card);
+            box-shadow: 0 0 15px currentColor;
         }
 
         .tier-dot.standard { background: var(--emerald); }
@@ -1030,61 +1157,123 @@
 
         /* Timer Panel */
         .timer-panel {
-            background: linear-gradient(135deg, rgba(15, 23, 41, 0.95), rgba(20, 29, 51, 0.9));
-            backdrop-filter: blur(30px);
-            border: 1px solid var(--gold);
-            border-radius: 20px;
-            padding: 3rem;
+            background: linear-gradient(135deg, rgba(20, 27, 38, 0.98), rgba(26, 35, 50, 0.95));
+            backdrop-filter: blur(50px);
+            border: 3px solid var(--gold);
+            border-radius: 25px;
+            padding: 4rem;
             text-align: center;
             margin-top: 3rem;
             display: none;
-            box-shadow: 0 0 60px var(--gold-glow);
+            box-shadow: 0 0 100px var(--gold-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timer-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(212, 175, 55, 0.1), transparent 30%);
+            animation: rotate360 5s linear infinite;
         }
 
         .timer-panel.active {
             display: block;
-            animation: luxuryFadeIn 0.5s ease;
+            animation: timerPopIn 0.6s ease;
+        }
+
+        @keyframes timerPopIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5) rotate(-10deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
         }
 
         .timer-panel.danger {
             border-color: var(--ruby);
-            box-shadow: 0 0 60px rgba(224, 17, 95, 0.4);
+            box-shadow: 0 0 100px rgba(224, 17, 95, 0.5);
+        }
+
+        .timer-panel > * {
+            position: relative;
+            z-index: 1;
         }
 
         .timer-countdown {
-            font-family: 'Source Code Pro', monospace;
-            font-size: 6rem;
+            font-family: 'Outfit', monospace;
+            font-size: 8rem;
             font-weight: 900;
             color: var(--gold);
-            margin: 2rem 0;
-            letter-spacing: 5px;
-            text-shadow: 0 0 40px var(--gold-glow);
+            margin: 2.5rem 0;
+            letter-spacing: 8px;
+            text-shadow: 0 0 60px var(--gold-glow);
+            animation: timerGlow 2s ease infinite;
+        }
+
+        @keyframes timerGlow {
+            0%, 100% { text-shadow: 0 0 60px var(--gold-glow); }
+            50% { text-shadow: 0 0 100px var(--gold-glow); }
         }
 
         .timer-panel.danger .timer-countdown {
             color: var(--ruby);
-            animation: timerPulse 1s infinite;
+            animation: dangerPulse 1s infinite;
         }
 
-        @keyframes timerPulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.05); }
+        @keyframes dangerPulse {
+            0%, 100% { 
+                opacity: 1; 
+                transform: scale(1); 
+                text-shadow: 0 0 60px rgba(224, 17, 95, 0.8);
+            }
+            50% { 
+                opacity: 0.7; 
+                transform: scale(1.08); 
+                text-shadow: 0 0 100px rgba(224, 17, 95, 1);
+            }
         }
 
         .timer-progress {
-            height: 12px;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 12px;
+            height: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
             overflow: hidden;
-            margin: 2rem 0;
+            margin: 3rem 0;
+            border: 1px solid rgba(212, 175, 55, 0.3);
         }
 
         .timer-progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--gold), var(--gold-light));
             transition: width 1s linear;
-            border-radius: 12px;
-            box-shadow: 0 0 20px var(--gold-glow);
+            border-radius: 15px;
+            box-shadow: 0 0 30px var(--gold-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timer-progress-fill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: progressShine 2s linear infinite;
+        }
+
+        @keyframes progressShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
 
         .timer-panel.danger .timer-progress-fill {
@@ -1099,60 +1288,60 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--luxury-dark);
+            background: var(--luxury-black);
             z-index: 4000;
             overflow-y: auto;
         }
 
         .payment-page.active {
             display: block;
-            animation: luxuryFadeIn 0.5s ease;
+            animation: fadeIn 0.5s ease;
         }
 
         .payment-container {
-            max-width: 900px;
-            margin: 100px auto;
-            padding: 3rem;
+            max-width: 1000px;
+            margin: 120px auto;
+            padding: 4rem;
         }
 
         .payment-header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
         }
 
         .payment-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4.5rem;
             font-weight: 800;
             background: linear-gradient(135deg, var(--gold), var(--platinum));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .payment-card {
-            background: linear-gradient(135deg, rgba(15, 23, 41, 0.9), rgba(20, 29, 51, 0.8));
-            backdrop-filter: blur(30px);
-            border: 1px solid var(--border-luxury);
-            border-radius: 24px;
-            padding: 3rem;
-            margin-bottom: 2rem;
+            background: linear-gradient(135deg, rgba(20, 27, 38, 0.95), rgba(26, 35, 50, 0.9));
+            backdrop-filter: blur(40px);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 25px;
+            padding: 4rem;
+            margin-bottom: 2.5rem;
         }
 
         .booking-summary {
             display: grid;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid var(--border-luxury);
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
         }
 
         .summary-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 1.1rem;
+            font-size: 1.25rem;
         }
 
         .summary-label {
@@ -1162,98 +1351,113 @@
         .summary-value {
             color: var(--gold);
             font-weight: 700;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
         }
 
         .total-amount {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 2rem;
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px solid var(--border-luxury);
-            border-radius: 12px;
-            margin-bottom: 3rem;
+            padding: 3rem;
+            background: rgba(212, 175, 55, 0.08);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            margin-bottom: 3.5rem;
         }
 
         .total-label {
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--text-primary);
         }
 
         .total-value {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
             font-weight: 800;
             color: var(--gold);
+            text-shadow: 0 0 30px var(--gold-glow);
         }
 
         /* Success Panel */
         .success-panel {
             display: none;
             margin-top: 3rem;
-            background: linear-gradient(135deg, rgba(80, 200, 120, 0.1), rgba(15, 82, 186, 0.05));
-            border: 1px solid var(--emerald);
-            border-radius: 20px;
-            padding: 4rem;
+            background: linear-gradient(135deg, rgba(80, 200, 120, 0.15), rgba(15, 82, 186, 0.08));
+            border: 2px solid var(--emerald);
+            border-radius: 25px;
+            padding: 5rem;
             text-align: center;
+            backdrop-filter: blur(30px);
         }
 
         .success-panel.active {
             display: block;
-            animation: luxuryFadeIn 0.5s ease;
+            animation: successBounce 0.8s ease;
+        }
+
+        @keyframes successBounce {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) rotate(-180deg);
+            }
+            50% {
+                transform: scale(1.1) rotate(10deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
         }
 
         .success-icon {
-            font-size: 6rem;
-            margin-bottom: 2rem;
-            animation: successPop 0.6s ease;
+            font-size: 8rem;
+            margin-bottom: 2.5rem;
+            animation: successIconPop 0.8s ease 0.3s backwards;
         }
 
-        @keyframes successPop {
+        @keyframes successIconPop {
             0% {
-                transform: scale(0);
-                opacity: 0;
+                transform: scale(0) rotate(-360deg);
             }
-            50% {
-                transform: scale(1.2);
+            70% {
+                transform: scale(1.2) rotate(20deg);
             }
             100% {
-                transform: scale(1);
-                opacity: 1;
+                transform: scale(1) rotate(0deg);
             }
         }
 
         .success-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
             font-weight: 800;
             color: var(--emerald);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 30px rgba(80, 200, 120, 0.5);
         }
 
         /* Notification */
-        .luxury-notification {
+        .elite-notification {
             position: fixed;
             bottom: 3rem;
             right: 3rem;
-            background: linear-gradient(135deg, rgba(15, 23, 41, 0.95), rgba(20, 29, 51, 0.9));
-            backdrop-filter: blur(30px);
-            border: 1px solid var(--border-luxury);
-            border-left: 4px solid var(--gold);
-            border-radius: 12px;
-            padding: 1.5rem 2rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            background: linear-gradient(135deg, rgba(20, 27, 38, 0.98), rgba(26, 35, 50, 0.95));
+            backdrop-filter: blur(40px);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-left: 5px solid var(--gold);
+            border-radius: 20px;
+            padding: 2rem 2.5rem;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
             display: none;
-            max-width: 450px;
+            max-width: 500px;
             z-index: 5000;
-            animation: slideInRight 0.5s ease;
+            animation: notificationSlide 0.6s ease;
         }
 
-        @keyframes slideInRight {
+        @keyframes notificationSlide {
             from {
-                transform: translateX(500px);
+                transform: translateX(600px);
                 opacity: 0;
             }
             to {
@@ -1262,187 +1466,50 @@
             }
         }
 
-        .luxury-notification.active {
+        .elite-notification.active {
             display: block;
         }
 
         .notification-content {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: 2rem;
         }
 
         .notification-icon {
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: var(--gold);
         }
 
         .notification-text h4 {
             font-weight: 700;
             color: var(--gold);
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
 
         .notification-text p {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 1rem;
         }
 
-        /* Section */
-        .luxury-section {
-            padding: 8rem 3rem;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 14px;
         }
 
-        .luxury-section .container {
-            max-width: 1800px;
-            margin: 0 auto;
+        ::-webkit-scrollbar-track {
+            background: var(--luxury-dark);
         }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 5rem;
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--gold), var(--gold-dark));
+            border-radius: 10px;
+            border: 2px solid var(--luxury-dark);
         }
 
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-        }
-
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Tiers Grid */
-        .tiers-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
-        }
-
-        .tier-showcase {
-            background: linear-gradient(135deg, rgba(15, 23, 41, 0.6), rgba(20, 29, 51, 0.4));
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-luxury);
-            border-radius: 24px;
-            padding: 3rem;
-            transition: all 0.4s;
-            position: relative;
-        }
-
-        .tier-showcase:hover {
-            transform: translateY(-15px);
-            border-color: var(--gold);
-            box-shadow: 0 30px 80px var(--gold-glow);
-        }
-
-        .tier-showcase.featured {
-            border-color: var(--gold);
-            box-shadow: 0 20px 60px var(--gold-glow);
-        }
-
-        .tier-badge {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            color: var(--luxury-darker);
-            padding: 0.5rem 1.5rem;
-            border-radius: 25px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .tier-icon {
-            font-size: 4rem;
-            margin-bottom: 2rem;
-        }
-
-        .tier-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .tier-price {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            font-weight: 800;
-            color: var(--gold);
-            margin: 1.5rem 0;
-        }
-
-        .tier-price span {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-        }
-
-        .tier-features-list {
-            margin: 2.5rem 0;
-        }
-
-        .tier-features-list li {
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border-luxury);
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            list-style: none;
-        }
-
-        .tier-features-list li i {
-            color: var(--emerald);
-        }
-
-        /* Footer */
-        footer {
-            background: linear-gradient(180deg, var(--luxury-dark), var(--luxury-darker));
-            border-top: 1px solid var(--border-luxury);
-            padding: 5rem 3rem 2rem;
-        }
-
-        footer .container {
-            max-width: 1800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--gold), var(--platinum));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-text {
-            color: var(--text-secondary);
-            max-width: 800px;
-            margin: 0 auto 3rem;
-            line-height: 1.8;
-        }
-
-        .footer-divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--border-luxury), transparent);
-            margin: 3rem 0;
-        }
-
-        .footer-bottom {
-            color: var(--text-muted);
-            font-size: 0.9rem;
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-light);
         }
 
         /* Responsive */
@@ -1450,65 +1517,37 @@
             .hero .container {
                 grid-template-columns: 1fr;
             }
-
-            .tiers-grid {
-                grid-template-columns: 1fr;
-            }
         }
 
         @media (max-width: 768px) {
             .hero-content h1 {
-                font-size: 3rem;
-            }
-
-            .luxury-stats {
-                grid-template-columns: 1fr;
+                font-size: 3.5rem;
             }
 
             .timer-countdown {
-                font-size: 4rem;
+                font-size: 5rem;
             }
 
             .tier-filter {
                 grid-template-columns: 1fr;
             }
         }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--luxury-darker);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--gold), var(--gold-dark));
-            border-radius: 6px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--gold-light);
-        }
     </style>
 </head>
 <body>
-    <!-- Particles Background -->
-    <div class="particles-background" id="particles"></div>
-    
-    <!-- Luxury Grid -->
-    <div class="luxury-grid"></div>
-    
-    <!-- Radial Glow -->
-    <div class="radial-glow"></div>
+    <!-- Ultra Background -->
+    <div class="ultra-bg">
+        <div class="animated-gradient"></div>
+        <div class="floating-particles" id="floatingParticles"></div>
+        <div class="mesh-gradient"></div>
+    </div>
 
     <!-- Content Wrapper -->
     <div class="content-wrapper">
-        <!-- Premium Header -->
-        <div class="premium-header">
+        <!-- Elite Header -->
+        <div class="elite-header">
             <div class="container">
-                <a href="#" class="luxury-logo">
+                <a href="#" class="elite-logo">
                     <div class="logo-emblem">
                         <i class="fas fa-gem"></i>
                     </div>
@@ -1519,10 +1558,10 @@
                 </a>
                 <div class="header-status">
                     <div class="status-item">
-                        <div class="status-icon"></div>
-                        <span class="status-text">System Active</span>
+                        <div class="status-dot"></div>
+                        <span style="font-weight: 600;">System Active</span>
                     </div>
-                    <div class="luxury-time" id="luxuryTime">00:00:00</div>
+                    <div class="elite-time" id="eliteTime">00:00:00</div>
                 </div>
             </div>
         </div>
@@ -1533,7 +1572,7 @@
                 <a href="#home" class="active">Home</a>
                 <a href="#features">Features</a>
                 <a href="#tiers">Premium Tiers</a>
-                <a href="#reserve">Reserve Now</a>
+                <a href="#reserve">Reserve</a>
             </div>
         </nav>
 
@@ -1543,15 +1582,15 @@
                 <div class="hero-content">
                     <h1>
                         Luxury Parking<br>
-                        <span class="luxury-gradient">Redefined Excellence</span>
+                        <span class="luxury-gradient-text" data-text="Redefined Excellence">Redefined Excellence</span>
                     </h1>
                     <p class="hero-subtitle">
-                        Experience the pinnacle of parking sophistication with our revolutionary time-locked 
-                        reservation system. Precision engineering meets luxury service in an unparalleled 
-                        parking management platform designed for the discerning few.
+                        Experience unparalleled sophistication in parking management. Our revolutionary 
+                        time-locked reservation system combines precision engineering with luxury service 
+                        delivery, creating an experience worthy of the elite.
                     </p>
 
-                    <div class="premium-protocol">
+                    <div class="elite-protocol">
                         <div class="protocol-header">
                             <i class="fas fa-shield-alt"></i>
                             <span>Premium Protocol</span>
@@ -1562,29 +1601,29 @@
                         <div class="protocol-timer">
                             <i class="fas fa-hourglass-half"></i> 60:00
                         </div>
-                        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.75rem;">
-                            Precision timing protocol | Late arrival: 30% fee | No-show: Full charge applies
+                        <p style="color: var(--text-muted); font-size: 1rem; margin-top: 1rem;">
+                            Precision timing protocol | Late arrival: 30% fee | No-show: Full charge
                         </p>
                     </div>
 
-                    <div class="luxury-stats">
-                        <div class="luxury-stat">
+                    <div class="elite-stats">
+                        <div class="elite-stat">
                             <div class="stat-value">94%</div>
                             <div class="stat-label">Punctuality Rate</div>
                         </div>
-                        <div class="luxury-stat">
+                        <div class="elite-stat">
                             <div class="stat-value">2.3x</div>
                             <div class="stat-label">Efficiency Boost</div>
                         </div>
-                        <div class="luxury-stat">
+                        <div class="elite-stat">
                             <div class="stat-value">100%</div>
                             <div class="stat-label">Satisfaction</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Premium Interface -->
-                <div class="premium-interface" id="reserve">
+                <!-- Elite Interface -->
+                <div class="elite-interface" id="reserve">
                     <div class="interface-header">
                         <div class="interface-title">Reserve Your Space</div>
                         <div class="interface-status">
@@ -1592,7 +1631,7 @@
                         </div>
                     </div>
                     
-                    <form class="premium-form" onsubmit="event.preventDefault(); searchParking();">
+                    <form class="elite-form" onsubmit="event.preventDefault(); searchParking();">
                         <div class="form-group">
                             <label>
                                 <i class="fas fa-map-marker-alt"></i>
@@ -1685,9 +1724,9 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="luxury-btn luxury-btn-primary">
+                        <button type="submit" class="elite-btn elite-btn-primary">
                             <i class="fas fa-search"></i>
-                            <span>Discover Available Locations</span>
+                            <span>Discover Locations</span>
                         </button>
                     </form>
 
@@ -1695,7 +1734,7 @@
                     <div class="results-section" id="resultsSection">
                         <div class="results-header">
                             <div class="results-title">Premium Locations</div>
-                            <div class="results-count">
+                            <div style="color: var(--text-secondary); font-weight: 600;">
                                 <span id="resultsCount">5</span> exclusive venues
                             </div>
                         </div>
@@ -1707,10 +1746,10 @@
 
                     <!-- Timer Panel -->
                     <div class="timer-panel" id="timerPanel">
-                        <div style="font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">
+                        <div style="font-family: 'Cormorant Garamond', serif; font-size: 2.25rem; font-weight: 700; margin-bottom: 1rem;">
                             <i class="fas fa-broadcast-tower"></i> Reservation Active
                         </div>
-                        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                        <p style="color: var(--text-secondary); font-size: 1.15rem; margin-bottom: 2rem;">
                             Time remaining until arrival deadline
                         </p>
                         
@@ -1720,32 +1759,32 @@
                             <div class="timer-progress-fill" id="timerProgressFill" style="width: 100%"></div>
                         </div>
                         
-                        <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 2rem; margin: 2rem 0;">
-                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
-                                <div style="text-align: left;">
-                                    <div style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem;">Location</div>
-                                    <div style="color: var(--gold); font-weight: 700; font-size: 1.1rem;" id="timerLocation">-</div>
+                        <div style="background: rgba(0,0,0,0.4); border-radius: 15px; padding: 2.5rem; margin: 2.5rem 0; backdrop-filter: blur(10px);">
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+                                <div>
+                                    <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 2px;">Location</div>
+                                    <div style="color: var(--gold); font-weight: 700; font-size: 1.35rem;" id="timerLocation">-</div>
                                 </div>
-                                <div style="text-align: left;">
-                                    <div style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem;">Floor</div>
-                                    <div style="color: var(--gold); font-weight: 700; font-size: 1.1rem;" id="timerFloor">-</div>
+                                <div>
+                                    <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 2px;">Floor</div>
+                                    <div style="color: var(--gold); font-weight: 700; font-size: 1.35rem;" id="timerFloor">-</div>
                                 </div>
-                                <div style="text-align: left;">
-                                    <div style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem;">Spot</div>
-                                    <div style="color: var(--gold); font-weight: 700; font-size: 1.1rem;" id="timerSpot">-</div>
+                                <div>
+                                    <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 2px;">Spot</div>
+                                    <div style="color: var(--gold); font-weight: 700; font-size: 1.35rem;" id="timerSpot">-</div>
                                 </div>
-                                <div style="text-align: left;">
-                                    <div style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem;">Tier</div>
-                                    <div style="color: var(--gold); font-weight: 700; font-size: 1.1rem;" id="timerTier">-</div>
+                                <div>
+                                    <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 2px;">Tier</div>
+                                    <div style="color: var(--gold); font-weight: 700; font-size: 1.35rem;" id="timerTier">-</div>
                                 </div>
                             </div>
                         </div>
                         
-                        <div style="margin-top: 2.5rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
-                            <button class="luxury-btn luxury-btn-secondary" onclick="cancelReservation()">
+                        <div style="margin-top: 3rem; display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+                            <button class="elite-btn elite-btn-secondary" onclick="cancelReservation()">
                                 <i class="fas fa-times-circle"></i> Cancel
                             </button>
-                            <button class="luxury-btn luxury-btn-primary" onclick="proceedToPayment()">
+                            <button class="elite-btn elite-btn-primary" onclick="proceedToPayment()">
                                 <i class="fas fa-credit-card"></i> Proceed to Payment
                             </button>
                         </div>
@@ -1755,11 +1794,11 @@
                     <div class="success-panel" id="successPanel">
                         <div class="success-icon">✓</div>
                         <div class="success-title">Confirmed</div>
-                        <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2.5rem;">
+                        <p style="font-size: 1.35rem; color: var(--text-secondary); margin-bottom: 3rem; line-height: 1.8;">
                             Your reservation at <strong id="successLocationName" style="color: var(--gold);">Central Plaza</strong> 
-                            has been successfully confirmed. Welcome.
+                            has been successfully confirmed. Welcome to premium parking excellence.
                         </p>
-                        <button class="luxury-btn luxury-btn-primary" onclick="rebookParking()">
+                        <button class="elite-btn elite-btn-primary" onclick="rebookParking()">
                             <i class="fas fa-redo"></i> Reserve Another Space
                         </button>
                     </div>
@@ -1768,15 +1807,15 @@
         </section>
 
         <!-- Floor Details Modal -->
-        <div class="luxury-modal" id="floorModal">
+        <div class="elite-modal" id="floorModal">
             <div class="modal-container">
                 <div class="modal-close" onclick="closeModal('floorModal')">
                     <i class="fas fa-times"></i>
                 </div>
                 
-                <div class="modal-header">
-                    <div class="modal-title" id="modalLocationName">Central Plaza</div>
-                    <p style="color: var(--text-secondary); font-size: 1.1rem;">
+                <div style="margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 2px solid rgba(212, 175, 55, 0.2);">
+                    <div style="font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, var(--gold), var(--platinum)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem;" id="modalLocationName">Central Plaza</div>
+                    <p style="color: var(--text-secondary); font-size: 1.25rem;">
                         <i class="fas fa-map-marker-alt"></i>
                         <span id="modalLocationAddress">MG Road, Bangalore</span>
                     </p>
@@ -1799,8 +1838,8 @@
                     <!-- Floors will be inserted here -->
                 </div>
 
-                <div style="margin-top: 3rem; text-align: center;">
-                    <button class="luxury-btn luxury-btn-secondary" onclick="closeModal('floorModal')">
+                <div style="margin-top: 3.5rem; text-align: center;">
+                    <button class="elite-btn elite-btn-secondary" onclick="closeModal('floorModal')">
                         <i class="fas fa-arrow-left"></i> Close
                     </button>
                 </div>
@@ -1812,11 +1851,11 @@
             <div class="payment-container">
                 <div class="payment-header">
                     <div class="payment-title">Secure Payment</div>
-                    <p style="color: var(--text-secondary); font-size: 1.1rem;">Complete your luxury reservation</p>
+                    <p style="color: var(--text-secondary); font-size: 1.25rem;">Complete your luxury reservation</p>
                 </div>
 
                 <div class="payment-card">
-                    <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 2rem; color: var(--gold);">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; margin-bottom: 2.5rem; color: var(--gold);">
                         Booking Summary
                     </h3>
                     
@@ -1848,106 +1887,21 @@
                         <span class="total-value">₹<span id="paymentAmount">50</span></span>
                     </div>
 
-                    <div style="display: flex; gap: 1.5rem; justify-content: center;">
-                        <button class="luxury-btn luxury-btn-secondary" onclick="closePaymentPage()">
+                    <div style="display: flex; gap: 2rem; justify-content: center;">
+                        <button class="elite-btn elite-btn-secondary" onclick="closePaymentPage()">
                             <i class="fas fa-arrow-left"></i> Back
                         </button>
-                        <button class="luxury-btn luxury-btn-primary" onclick="confirmPayment()">
+                        <button class="elite-btn elite-btn-primary" onclick="confirmPayment()">
                             <i class="fas fa-check-circle"></i> Confirm Payment
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Tiers Section -->
-        <section class="luxury-section" id="tiers">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">
-                        <span class="luxury-gradient">Premium Membership Tiers</span>
-                    </h2>
-                    <p class="section-subtitle">
-                        Experience elevated parking luxury with our exclusive membership programs. 
-                        Each tier designed to deliver unparalleled service and convenience.
-                    </p>
-                </div>
-
-                <div class="tiers-grid">
-                    <div class="tier-showcase">
-                        <div class="tier-icon">🟢</div>
-                        <div class="tier-name">Standard Access</div>
-                        <div class="tier-price">₹50<span>/booking</span></div>
-                        <ul class="tier-features-list">
-                            <li><i class="fas fa-check"></i> All standard parking zones</li>
-                            <li><i class="fas fa-check"></i> 60-minute arrival window</li>
-                            <li><i class="fas fa-check"></i> Standard customer support</li>
-                            <li><i class="fas fa-check"></i> GPS auto check-in</li>
-                            <li><i class="fas fa-check"></i> Standard refund policy</li>
-                        </ul>
-                        <button class="luxury-btn luxury-btn-secondary" style="width: 100%; margin-top: 2rem;">
-                            <i class="fas fa-parking"></i> Select
-                        </button>
-                    </div>
-
-                    <div class="tier-showcase featured">
-                        <div class="tier-badge">Most Popular</div>
-                        <div class="tier-icon">🟡</div>
-                        <div class="tier-name">Priority Access</div>
-                        <div class="tier-price">₹100<span>/booking</span></div>
-                        <ul class="tier-features-list">
-                            <li><i class="fas fa-check"></i> Premium parking zones</li>
-                            <li><i class="fas fa-check"></i> Extended 75-minute window</li>
-                            <li><i class="fas fa-check"></i> 5-minute grace period</li>
-                            <li><i class="fas fa-check"></i> Wider parking spaces</li>
-                            <li><i class="fas fa-check"></i> Priority customer support</li>
-                            <li><i class="fas fa-check"></i> Free cancellation policy</li>
-                        </ul>
-                        <button class="luxury-btn luxury-btn-primary" style="width: 100%; margin-top: 2rem;">
-                            <i class="fas fa-star"></i> Select
-                        </button>
-                    </div>
-
-                    <div class="tier-showcase">
-                        <div class="tier-icon">🔴</div>
-                        <div class="tier-name">VIP Access</div>
-                        <div class="tier-price">₹200<span>/booking</span></div>
-                        <ul class="tier-features-list">
-                            <li><i class="fas fa-check"></i> VIP entrance zones</li>
-                            <li><i class="fas fa-check"></i> Maximum 90-minute window</li>
-                            <li><i class="fas fa-check"></i> Extended 15-minute grace</li>
-                            <li><i class="fas fa-check"></i> EV charging priority</li>
-                            <li><i class="fas fa-check"></i> Premium covered spots</li>
-                            <li><i class="fas fa-check"></i> VIP concierge 24/7</li>
-                            <li><i class="fas fa-check"></i> Unlimited cancellation</li>
-                        </ul>
-                        <button class="luxury-btn luxury-btn-secondary" style="width: 100%; margin-top: 2rem;">
-                            <i class="fas fa-crown"></i> Select
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer>
-            <div class="container">
-                <div class="footer-logo">ParkSmart</div>
-                <p class="footer-text">
-                    Experience the pinnacle of parking luxury with our revolutionary time-locked 
-                    reservation platform. Precision engineering meets sophisticated service delivery 
-                    for the discerning clientele who demand excellence.
-                </p>
-                <div class="footer-divider"></div>
-                <div class="footer-bottom">
-                    <p>&copy; 2024 ParkSmart Pro. All rights reserved. Crafted with precision.</p>
-                </div>
-            </div>
-        </footer>
     </div>
 
-    <!-- Luxury Notification -->
-    <div class="luxury-notification" id="luxuryNotification">
+    <!-- Elite Notification -->
+    <div class="elite-notification" id="eliteNotification">
         <div class="notification-content">
             <i class="fas fa-info-circle notification-icon"></i>
             <div class="notification-text">
@@ -1959,154 +1913,72 @@
 
     <!-- JavaScript -->
     <script>
-        // Create particles
-        function createParticles() {
-            const container = document.getElementById('particles');
-            for (let i = 0; i < 50; i++) {
+        // Create floating particles
+        function createFloatingParticles() {
+            const container = document.getElementById('floatingParticles');
+            for (let i = 0; i < 60; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (20 + Math.random() * 15) + 's';
                 particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
                 container.appendChild(particle);
             }
         }
 
-        createParticles();
+        createFloatingParticles();
 
-        // Parking data
+        // Parking data (same as before)
         const parkingData = [
             {
                 id: 1,
                 name: 'Central Plaza',
                 address: 'MG Road, Bangalore',
-                distance: '0.3 km',
-                walkTime: '5 min',
-                rating: 4.8,
-                features: ['Covered', '24/7 Security', 'CCTV', 'Valet'],
                 floors: [
-                    {
-                        name: 'Ground Floor',
-                        total: 60,
-                        spots: generateTieredSpots(60, 'ground')
-                    },
-                    {
-                        name: 'First Floor',
-                        total: 60,
-                        spots: generateTieredSpots(60, 'first')
-                    },
-                    {
-                        name: 'Second Floor',
-                        total: 60,
-                        spots: generateTieredSpots(60, 'second')
-                    }
+                    { name: 'Ground Floor', total: 60, spots: generateTieredSpots(60, 'ground') },
+                    { name: 'First Floor', total: 60, spots: generateTieredSpots(60, 'first') }
                 ]
             },
             {
                 id: 2,
                 name: 'Metro Hub Elite',
                 address: 'Trinity Metro, Bangalore',
-                distance: '0.5 km',
-                walkTime: '8 min',
-                rating: 4.6,
-                features: ['Metro Access', 'EV Charging', 'CCTV'],
                 floors: [
-                    {
-                        name: 'Basement 1',
-                        total: 80,
-                        spots: generateTieredSpots(80, 'basement')
-                    },
-                    {
-                        name: 'Ground Floor',
-                        total: 80,
-                        spots: generateTieredSpots(80, 'ground')
-                    },
-                    {
-                        name: 'First Floor',
-                        total: 80,
-                        spots: generateTieredSpots(80, 'first')
-                    }
+                    { name: 'Basement 1', total: 80, spots: generateTieredSpots(80, 'basement') },
+                    { name: 'Ground Floor', total: 80, spots: generateTieredSpots(80, 'ground') }
                 ]
             },
             {
                 id: 3,
                 name: 'Prestige Tower',
                 address: 'UB City, Bangalore',
-                distance: '0.1 km',
-                walkTime: '2 min',
-                rating: 4.9,
-                features: ['Valet', 'Premium', 'EV Charging', 'Covered'],
                 floors: [
-                    {
-                        name: 'Ground Floor',
-                        total: 50,
-                        spots: generateTieredSpots(50, 'ground')
-                    },
-                    {
-                        name: 'Level 1',
-                        total: 50,
-                        spots: generateTieredSpots(50, 'first')
-                    },
-                    {
-                        name: 'Level 2',
-                        total: 50,
-                        spots: generateTieredSpots(50, 'second')
-                    }
+                    { name: 'Ground Floor', total: 50, spots: generateTieredSpots(50, 'ground') },
+                    { name: 'Level 1', total: 50, spots: generateTieredSpots(50, 'first') }
                 ]
             },
             {
                 id: 4,
-                name: 'Luxury Mall Complex',
+                name: 'Luxury Mall',
                 address: 'Orion Mall, Bangalore',
-                distance: '0.7 km',
-                walkTime: '10 min',
-                rating: 4.5,
-                features: ['Mall Access', 'Food Court', 'CCTV', 'Lifts'],
                 floors: [
-                    {
-                        name: 'Basement 2',
-                        total: 100,
-                        spots: generateTieredSpots(100, 'basement')
-                    },
-                    {
-                        name: 'Basement 1',
-                        total: 100,
-                        spots: generateTieredSpots(100, 'basement')
-                    },
-                    {
-                        name: 'Ground Floor',
-                        total: 100,
-                        spots: generateTieredSpots(100, 'ground')
-                    }
+                    { name: 'Basement 2', total: 100, spots: generateTieredSpots(100, 'basement') },
+                    { name: 'Ground Floor', total: 100, spots: generateTieredSpots(100, 'ground') }
                 ]
             },
             {
                 id: 5,
                 name: 'Executive Tech Park',
-                address: 'Manyata Tech Park, Bangalore',
-                distance: '1.2 km',
-                walkTime: '15 min',
-                rating: 4.7,
-                features: ['Corporate', 'EV Charging', '24/7', 'Cafeteria'],
+                address: 'Manyata, Bangalore',
                 floors: [
-                    {
-                        name: 'Basement 1',
-                        total: 125,
-                        spots: generateTieredSpots(125, 'basement')
-                    },
-                    {
-                        name: 'Ground Floor',
-                        total: 125,
-                        spots: generateTieredSpots(125, 'ground')
-                    }
+                    { name: 'Basement 1', total: 125, spots: generateTieredSpots(125, 'basement') },
+                    { name: 'Ground Floor', total: 125, spots: generateTieredSpots(125, 'ground') }
                 ]
             }
         ];
 
-        // Generate tiered spots
         function generateTieredSpots(total, floorType) {
             const spots = [];
-            
             let vipCount, priorityCount, standardCount;
             
             if (floorType === 'ground') {
@@ -2128,11 +2000,9 @@
             for (let i = 0; i < vipCount; i++) {
                 spots.push(createSpot(spotIndex++, 'vip'));
             }
-            
             for (let i = 0; i < priorityCount; i++) {
                 spots.push(createSpot(spotIndex++, 'priority'));
             }
-            
             for (let i = 0; i < standardCount; i++) {
                 spots.push(createSpot(spotIndex++, 'standard'));
             }
@@ -2158,22 +2028,6 @@
             };
         }
 
-        // Calculate availability
-        parkingData.forEach(location => {
-            let total = 0;
-            let available = 0;
-            
-            location.floors.forEach(floor => {
-                floor.spots.forEach(spot => {
-                    total++;
-                    if (spot.status === 'available') available++;
-                });
-            });
-            
-            location.totalSpots = total;
-            location.availableSpots = available;
-        });
-
         // Global variables
         let reservationTimer;
         let timeRemaining = 3600;
@@ -2186,20 +2040,18 @@
             const now = new Date();
             document.getElementById('dateTime').value = now.toISOString().slice(0, 16);
             
-            updateLuxuryTime();
-            setInterval(updateLuxuryTime, 1000);
+            updateEliteTime();
+            setInterval(updateEliteTime, 1000);
         });
 
-        // Update luxury time
-        function updateLuxuryTime() {
+        function updateEliteTime() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
-            document.getElementById('luxuryTime').textContent = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('eliteTime').textContent = `${hours}:${minutes}:${seconds}`;
         }
 
-        // Update tier info
         function updateTierInfo() {
             const tierSelect = document.getElementById('tierSelect').value;
             
@@ -2219,7 +2071,6 @@
             }
         }
 
-        // Search parking
         function searchParking() {
             const location = document.getElementById('locationInput').value;
             if (!location) {
@@ -2229,11 +2080,12 @@
 
             displayParkingLocations();
             document.getElementById('resultsSection').classList.add('active');
-            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
             showNotification('Search Complete', `${parkingData.length} luxury venues found`);
         }
 
-        // Display parking locations
         function displayParkingLocations() {
             const container = document.getElementById('locationsGrid');
             container.innerHTML = '';
@@ -2243,26 +2095,17 @@
                 card.className = 'location-card';
                 card.onclick = () => showFloorDetails(parking);
                 card.innerHTML = `
-                    <div class="availability-badge available">
-                        <i class="fas fa-check-circle"></i> Available
-                    </div>
                     <div class="location-name">${parking.name}</div>
-                    <div class="location-address">
+                    <div style="color: var(--text-muted); margin-bottom: 1.5rem;">
                         <i class="fas fa-map-marker-alt"></i> ${parking.address}
                     </div>
-                    <div class="location-details">
-                        <div class="detail-item">
-                            <i class="fas fa-route"></i> ${parking.distance}
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-walking"></i> ${parking.walkTime}
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-star"></i> ${parking.rating}
-                        </div>
-                        <div class="detail-item">
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <span style="color: var(--emerald); font-weight: 600;">
+                            <i class="fas fa-check-circle"></i> Available
+                        </span>
+                        <span style="color: var(--text-muted);">
                             <i class="fas fa-building"></i> ${parking.floors.length} Floors
-                        </div>
+                        </span>
                     </div>
                 `;
                 container.appendChild(card);
@@ -2271,7 +2114,6 @@
             document.getElementById('resultsCount').textContent = parkingData.length;
         }
 
-        // Show floor details
         function showFloorDetails(parking) {
             document.getElementById('modalLocationName').textContent = parking.name;
             document.getElementById('modalLocationAddress').textContent = parking.address;
@@ -2312,7 +2154,6 @@
             openModal('floorModal');
         }
 
-        // Filter by tier
         function filterByTier(tier) {
             currentTierFilter = tier;
             
@@ -2331,7 +2172,6 @@
             });
         }
 
-        // Select spot
         function selectSpot(locationName, floorName, spotNumber, price, tier) {
             const tierNames = {
                 'standard': 'Standard',
@@ -2357,25 +2197,27 @@
                 closeModal('floorModal');
                 
                 document.getElementById('resultsSection').style.display = 'none';
-                document.querySelector('.premium-form').style.display = 'none';
+                document.querySelector('.elite-form').style.display = 'none';
                 
                 document.getElementById('timerPanel').classList.add('active');
-                document.getElementById('timerPanel').scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => {
+                    document.getElementById('timerPanel').scrollIntoView({ behavior: 'smooth' });
+                }, 100);
                 
                 startTimer(tier);
                 showNotification('Reservation Locked', `Spot ${spotNumber} secured`);
             }
         }
 
-        // Start timer - FIXED VERSION
+        // FIXED Timer Function
         function startTimer(tier) {
             // Set time based on tier (in seconds)
             if (tier === 'standard') {
-                timeRemaining = 3600; // 60 min
+                timeRemaining = 3600; // Exactly 60 minutes
             } else if (tier === 'priority') {
-                timeRemaining = 4500; // 75 min
+                timeRemaining = 4500; // Exactly 75 minutes
             } else if (tier === 'vip') {
-                timeRemaining = 5400; // 90 min
+                timeRemaining = 5400; // Exactly 90 minutes
             }
             
             totalTime = timeRemaining;
@@ -2384,13 +2226,15 @@
             const progressBar = document.getElementById('timerProgressFill');
             const timerPanel = document.getElementById('timerPanel');
 
+            // Clear any existing timer
             clearInterval(reservationTimer);
             
-            // Update immediately
+            // Update display immediately
             const minutes = Math.floor(timeRemaining / 60);
             const seconds = timeRemaining % 60;
             countdownEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
             
+            // Start countdown
             reservationTimer = setInterval(() => {
                 timeRemaining--;
 
@@ -2409,13 +2253,12 @@
                 if (timeRemaining <= 0) {
                     clearInterval(reservationTimer);
                     const penalty = selectedBookingData.price * 0.3;
-                    alert(`Time Expired!\n\nReservation auto-cancelled.\nPenalty: ₹${penalty.toFixed(0)}\n\nSpot released.`);
+                    alert(`Time Expired!\n\nReservation auto-cancelled.\nPenalty: ₹${penalty.toFixed(0)}`);
                     resetTimer();
                 }
             }, 1000);
         }
 
-        // Proceed to payment
         function proceedToPayment() {
             clearInterval(reservationTimer);
             
@@ -2436,23 +2279,22 @@
             window.scrollTo(0, 0);
         }
 
-        // Close payment page
         function closePaymentPage() {
             document.getElementById('paymentPage').classList.remove('active');
             startTimer(selectedBookingData.tierType);
         }
 
-        // Confirm payment
         function confirmPayment() {
             document.getElementById('paymentPage').classList.remove('active');
             document.getElementById('successLocationName').textContent = selectedBookingData.location;
             document.getElementById('timerPanel').style.display = 'none';
             document.getElementById('successPanel').classList.add('active');
-            document.getElementById('successPanel').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                document.getElementById('successPanel').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
             showNotification('Payment Confirmed', 'Reservation complete. Welcome!');
         }
 
-        // Cancel reservation
         function cancelReservation() {
             if (confirm('Cancel this reservation?')) {
                 clearInterval(reservationTimer);
@@ -2462,10 +2304,9 @@
             }
         }
 
-        // Rebook parking
         function rebookParking() {
             document.getElementById('successPanel').classList.remove('active');
-            document.querySelector('.premium-form').style.display = 'flex';
+            document.querySelector('.elite-form').style.display = 'flex';
             
             document.getElementById('locationInput').value = '';
             const now = new Date();
@@ -2476,21 +2317,21 @@
             document.getElementById('resultsSection').classList.remove('active');
             document.getElementById('timerPanel').classList.remove('active', 'danger');
             
-            document.getElementById('reserve').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                document.getElementById('reserve').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
             showNotification('Ready', 'New reservation ready');
         }
 
-        // Reset timer
         function resetTimer() {
             clearInterval(reservationTimer);
             timeRemaining = totalTime;
             document.getElementById('timerPanel').classList.remove('active', 'danger');
             document.getElementById('timerProgressFill').style.width = '100%';
-            document.querySelector('.premium-form').style.display = 'flex';
+            document.querySelector('.elite-form').style.display = 'flex';
             document.getElementById('resultsSection').classList.remove('active');
         }
 
-        // Modal functions
         function openModal(modalId) {
             document.getElementById(modalId).classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -2501,7 +2342,7 @@
             document.body.style.overflow = 'auto';
         }
 
-        document.querySelectorAll('.luxury-modal').forEach(modal => {
+        document.querySelectorAll('.elite-modal').forEach(modal => {
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     closeModal(modal.id);
@@ -2509,19 +2350,17 @@
             });
         });
 
-        // Show notification
         function showNotification(title, message) {
-            const notification = document.getElementById('luxuryNotification');
+            const notification = document.getElementById('eliteNotification');
             document.getElementById('notificationTitle').textContent = title;
             document.getElementById('notificationMessage').textContent = message;
             notification.classList.add('active');
             
             setTimeout(() => {
                 notification.classList.remove('active');
-            }, 4500);
+            }, 5000);
         }
 
-        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
