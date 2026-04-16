@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ParkSmart Pro | Cyberpunk Parking System</title>
+    <title>ParkSmart Pro | Intelligent Parking System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
         * {
             margin: 0;
@@ -15,276 +15,156 @@
         }
 
         :root {
-            /* Cyberpunk Color Palette */
-            --cyber-black: #0a0e27;
-            --cyber-dark: #141b2d;
-            --cyber-darker: #0d1117;
+            /* JARVIS Color Palette */
+            --jarvis-bg: #0a0e17;
+            --jarvis-bg-secondary: #0f1419;
+            --jarvis-bg-card: #151b26;
+            --jarvis-bg-elevated: #1a2332;
             
-            --cyber-cyan: #00fff9;
-            --cyber-cyan-glow: rgba(0, 255, 249, 0.5);
-            --cyber-magenta: #ff00ff;
-            --cyber-magenta-glow: rgba(255, 0, 255, 0.5);
-            --cyber-yellow: #fffc00;
-            --cyber-yellow-glow: rgba(255, 252, 0, 0.5);
-            --cyber-purple: #9d00ff;
-            --cyber-pink: #ff006e;
-            --cyber-blue: #0066ff;
+            --jarvis-blue: #1e90ff;
+            --jarvis-blue-light: #4db8ff;
+            --jarvis-blue-glow: rgba(30, 144, 255, 0.4);
             
-            /* Tier Colors - Cyberpunk Style */
-            --tier-standard: #00ff41;
-            --tier-priority: #ff9500;
-            --tier-vip: #ff0080;
+            --jarvis-gold: #ffa500;
+            --jarvis-gold-light: #ffb84d;
+            --jarvis-gold-glow: rgba(255, 165, 0, 0.3);
             
-            /* Text */
-            --text-primary: #ffffff;
-            --text-secondary: #b8c5db;
-            --text-muted: #6b7a94;
-            --text-glow: #00fff9;
+            --jarvis-success: #00e676;
+            --jarvis-warning: #ffb300;
+            --jarvis-danger: #ff3d00;
             
-            /* Effects */
-            --grid-color: rgba(0, 255, 249, 0.1);
-            --scanline: rgba(0, 255, 249, 0.05);
-            --shadow-cyan: 0 0 20px var(--cyber-cyan-glow);
-            --shadow-magenta: 0 0 20px var(--cyber-magenta-glow);
+            --text-primary: #e8eaed;
+            --text-secondary: #9aa0a6;
+            --text-muted: #5f6368;
+            
+            --border-primary: rgba(30, 144, 255, 0.2);
+            --border-secondary: rgba(30, 144, 255, 0.1);
+            
+            --glass-bg: rgba(21, 27, 38, 0.7);
+            --glass-border: rgba(30, 144, 255, 0.15);
         }
 
         body {
-            font-family: 'Rajdhani', sans-serif;
-            background: var(--cyber-black);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--jarvis-bg);
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Cyberpunk Grid Background */
-        .cyber-grid {
+        /* Subtle Grid Background */
+        .grid-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(var(--grid-color) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
+                linear-gradient(rgba(30, 144, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 144, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
             z-index: 0;
             pointer-events: none;
         }
 
-        @keyframes gridMove {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(50px); }
-        }
-
-        /* Scanlines Effect */
-        .scanlines {
+        /* Subtle Gradient Overlay */
+        .gradient-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                var(--scanline) 2px,
-                var(--scanline) 4px
-            );
+            background: radial-gradient(ellipse at top, rgba(30, 144, 255, 0.05), transparent 50%),
+                        radial-gradient(ellipse at bottom, rgba(255, 165, 0, 0.03), transparent 50%);
             z-index: 0;
             pointer-events: none;
-            animation: scanlineMove 8s linear infinite;
-        }
-
-        @keyframes scanlineMove {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(10px); }
-        }
-
-        /* Glowing Orbs */
-        .cyber-orbs {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .cyber-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.3;
-            animation: orbFloat 15s infinite ease-in-out;
-        }
-
-        .orb-cyan {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, var(--cyber-cyan), transparent);
-            top: 10%;
-            right: 10%;
-        }
-
-        .orb-magenta {
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, var(--cyber-magenta), transparent);
-            bottom: 10%;
-            left: 10%;
-            animation-delay: 5s;
-        }
-
-        .orb-purple {
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, var(--cyber-purple), transparent);
-            top: 50%;
-            left: 50%;
-            animation-delay: 10s;
-        }
-
-        @keyframes orbFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(100px, -100px) scale(1.2); }
-            66% { transform: translate(-100px, 100px) scale(0.8); }
         }
 
         /* Content Layer */
-        .content-layer {
+        .content-wrapper {
             position: relative;
             z-index: 1;
         }
 
-        /* Glitch Effect */
-        .glitch {
-            position: relative;
-            color: var(--text-primary);
-        }
-
-        .glitch::before,
-        .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0.8;
-        }
-
-        .glitch::before {
-            animation: glitch-1 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
-            color: var(--cyber-cyan);
-            z-index: -1;
-        }
-
-        .glitch::after {
-            animation: glitch-2 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse infinite;
-            color: var(--cyber-magenta);
-            z-index: -2;
-        }
-
-        @keyframes glitch-1 {
-            0% { clip-path: inset(40% 0 61% 0); }
-            20% { clip-path: inset(92% 0 1% 0); }
-            40% { clip-path: inset(43% 0 1% 0); }
-            60% { clip-path: inset(25% 0 58% 0); }
-            80% { clip-path: inset(54% 0 7% 0); }
-            100% { clip-path: inset(58% 0 43% 0); }
-        }
-
-        @keyframes glitch-2 {
-            0% { clip-path: inset(25% 0 58% 0); }
-            20% { clip-path: inset(54% 0 7% 0); }
-            40% { clip-path: inset(58% 0 43% 0); }
-            60% { clip-path: inset(40% 0 61% 0); }
-            80% { clip-path: inset(92% 0 1% 0); }
-            100% { clip-path: inset(43% 0 1% 0); }
-        }
-
-        /* Top System Bar */
-        .system-bar {
-            background: rgba(20, 27, 45, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 2px solid var(--cyber-cyan);
-            box-shadow: 0 0 20px var(--cyber-cyan-glow);
-            padding: 0.5rem 0;
+        /* Header - Professional */
+        .system-header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 0.75rem 0;
             position: sticky;
             top: 0;
             z-index: 1001;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
         }
 
-        .system-bar .container {
+        .system-header .container {
             max-width: 1600px;
             margin: 0 auto;
             padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
+            gap: 2rem;
         }
 
-        .system-status {
+        .system-info {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .info-badge {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-family: 'Share Tech Mono', monospace;
+            padding: 0.5rem 1rem;
+            background: rgba(30, 144, 255, 0.1);
+            border: 1px solid var(--border-primary);
+            border-radius: 6px;
             font-size: 0.85rem;
-            color: var(--cyber-cyan);
-            padding: 0.4rem 1rem;
-            background: rgba(0, 255, 249, 0.1);
-            border: 1px solid var(--cyber-cyan);
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            position: relative;
+            transition: all 0.3s;
         }
 
-        .system-status::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: var(--cyber-cyan);
-            opacity: 0;
-            transition: opacity 0.3s;
+        .info-badge:hover {
+            background: rgba(30, 144, 255, 0.15);
+            border-color: var(--jarvis-blue);
         }
 
-        .system-status:hover::before {
-            opacity: 0.1;
+        .info-badge i {
+            color: var(--jarvis-blue);
         }
 
-        .status-dot {
+        .status-indicator {
             width: 8px;
             height: 8px;
-            background: var(--cyber-cyan);
+            background: var(--jarvis-success);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--cyber-cyan);
-            animation: pulse-dot 1.5s infinite;
+            box-shadow: 0 0 10px var(--jarvis-success);
+            animation: pulse-status 2s infinite;
         }
 
-        @keyframes pulse-dot {
+        @keyframes pulse-status {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+            50% { opacity: 0.5; }
         }
 
-        .live-time {
-            font-family: 'Share Tech Mono', monospace;
-            color: var(--cyber-yellow);
-            text-shadow: 0 0 10px var(--cyber-yellow-glow);
+        .system-time {
+            font-family: 'Space Grotesk', monospace;
+            color: var(--jarvis-gold);
+            font-weight: 600;
         }
 
         /* Navigation */
         nav {
-            background: rgba(10, 14, 39, 0.95);
+            background: var(--glass-bg);
             backdrop-filter: blur(20px);
-            border-bottom: 2px solid var(--cyber-magenta);
-            padding: 1rem 0;
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1.25rem 0;
             position: sticky;
-            top: 50px;
+            top: 60px;
             z-index: 1000;
-            box-shadow: 0 4px 30px var(--cyber-magenta-glow);
         }
 
         nav .container {
@@ -297,42 +177,33 @@
         }
 
         .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            font-weight: 900;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
             text-decoration: none;
-            position: relative;
+            color: var(--text-primary);
         }
 
         .logo-icon {
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, var(--cyber-cyan), var(--cyber-magenta));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: logo-glow 2s infinite;
-        }
-
-        @keyframes logo-glow {
-            0%, 100% { filter: drop-shadow(0 0 10px var(--cyber-cyan)); }
-            50% { filter: drop-shadow(0 0 20px var(--cyber-magenta)); }
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--jarvis-blue), var(--jarvis-gold));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 15px var(--jarvis-blue-glow);
         }
 
         .logo-text {
-            background: linear-gradient(135deg, var(--cyber-cyan), var(--cyber-magenta), var(--cyber-yellow));
+            background: linear-gradient(135deg, var(--jarvis-blue), var(--jarvis-gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            background-size: 200% 200%;
-            animation: gradient-flow 3s ease infinite;
-        }
-
-        @keyframes gradient-flow {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
         }
 
         nav ul {
@@ -345,30 +216,27 @@
         nav a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
+            font-weight: 500;
+            font-size: 0.95rem;
             transition: all 0.3s;
             position: relative;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            padding: 0.5rem 0;
         }
 
         nav a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--cyber-cyan);
+            background: var(--jarvis-blue);
             transition: width 0.3s;
-            box-shadow: 0 0 10px var(--cyber-cyan);
         }
 
         nav a:hover,
         nav a.active {
-            color: var(--cyber-cyan);
-            text-shadow: 0 0 10px var(--cyber-cyan-glow);
+            color: var(--jarvis-blue);
         }
 
         nav a:hover::after,
@@ -377,439 +245,240 @@
         }
 
         .nav-cta {
-            background: linear-gradient(135deg, var(--cyber-cyan), var(--cyber-magenta));
-            padding: 0.75rem 2rem !important;
-            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-            position: relative;
-            overflow: hidden;
-            color: var(--cyber-black) !important;
-            text-shadow: none !important;
-        }
-
-        .nav-cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .nav-cta:hover::before {
-            left: 100%;
+            background: linear-gradient(135deg, var(--jarvis-blue), var(--jarvis-blue-light));
+            color: white !important;
+            padding: 0.75rem 1.5rem !important;
+            border-radius: 8px;
+            font-weight: 600 !important;
+            box-shadow: 0 4px 15px var(--jarvis-blue-glow);
         }
 
         .nav-cta::after {
             display: none;
         }
 
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--jarvis-blue-glow);
+        }
+
         /* Hero Section */
         .hero {
             padding: 4rem 2rem;
-            position: relative;
         }
 
         .hero .container {
             max-width: 1600px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
+            grid-template-columns: 1.3fr 0.7fr;
             gap: 4rem;
             align-items: start;
         }
 
         .hero-content h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 4.5rem;
-            line-height: 1.1;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5rem;
+            line-height: 1.2;
             margin-bottom: 1.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
+            font-weight: 700;
         }
 
-        .cyber-title {
-            background: linear-gradient(135deg, var(--cyber-cyan), var(--cyber-magenta), var(--cyber-yellow));
+        .gradient-text {
+            background: linear-gradient(135deg, var(--jarvis-blue), var(--jarvis-gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            background-size: 200% 200%;
-            animation: gradient-flow 3s ease infinite;
-            text-shadow: 0 0 30px var(--cyber-cyan-glow);
-            filter: drop-shadow(0 0 20px var(--cyber-cyan));
         }
 
         .hero-subtitle {
-            font-size: 1.3rem;
+            font-size: 1.15rem;
             color: var(--text-secondary);
             margin-bottom: 2rem;
-            line-height: 1.8;
+            line-height: 1.7;
         }
 
-        /* Cyber Alert Box */
-        .cyber-alert {
-            background: rgba(255, 0, 110, 0.1);
-            border: 2px solid var(--cyber-pink);
-            clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
-            padding: 2rem;
+        /* Protocol Box */
+        .protocol-box {
+            background: linear-gradient(135deg, rgba(255, 61, 0, 0.1), rgba(255, 165, 0, 0.05));
+            border: 1px solid rgba(255, 61, 0, 0.3);
+            border-left: 4px solid var(--jarvis-danger);
+            border-radius: 12px;
+            padding: 1.5rem;
             margin: 2rem 0;
-            position: relative;
-            overflow: hidden;
         }
 
-        .cyber-alert::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 10px,
-                rgba(255, 0, 110, 0.1) 10px,
-                rgba(255, 0, 110, 0.1) 11px
-            );
-            animation: alert-scan 3s linear infinite;
-        }
-
-        @keyframes alert-scan {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(20px); }
-        }
-
-        .alert-header {
+        .protocol-header {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--cyber-pink);
+            gap: 0.75rem;
             margin-bottom: 1rem;
-            text-shadow: 0 0 10px var(--cyber-pink);
+            font-weight: 600;
+            color: var(--jarvis-danger);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .alert-icon {
-            animation: rotate-icon 2s linear infinite;
+        .protocol-content {
+            font-size: 1.05rem;
+            margin-bottom: 0.75rem;
         }
 
-        @keyframes rotate-icon {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .alert-timer {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--cyber-pink);
-            text-shadow: 0 0 20px var(--cyber-pink), 0 0 40px var(--cyber-pink);
-            margin: 1rem 0;
-            letter-spacing: 3px;
+        .protocol-timer {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--jarvis-danger);
+            margin: 0.75rem 0;
         }
 
         /* Stats Grid */
-        .cyber-stats {
+        .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
             margin-top: 2.5rem;
         }
 
-        .cyber-stat {
-            background: rgba(20, 27, 45, 0.8);
-            border: 2px solid var(--cyber-cyan);
-            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-primary);
+            border-radius: 12px;
             padding: 1.5rem;
             text-align: center;
-            position: relative;
-            overflow: hidden;
             transition: all 0.3s;
         }
 
-        .cyber-stat::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 249, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .cyber-stat:hover {
+        .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 40px var(--cyber-cyan-glow);
-            border-color: var(--cyber-magenta);
-        }
-
-        .cyber-stat:hover::before {
-            left: 100%;
+            border-color: var(--jarvis-blue);
+            box-shadow: 0 10px 30px rgba(30, 144, 255, 0.2);
         }
 
         .stat-value {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--cyber-cyan), var(--cyber-yellow));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--jarvis-blue);
+            margin-bottom: 0.5rem;
         }
 
         .stat-label {
             font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-top: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: var(--text-secondary);
         }
 
-        /* Reservation Terminal */
-        .reservation-terminal {
-            background: rgba(20, 27, 45, 0.95);
+        /* Interface Panel */
+        .interface-panel {
+            background: var(--glass-bg);
             backdrop-filter: blur(20px);
-            border: 2px solid var(--cyber-magenta);
-            clip-path: polygon(25px 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%, 0 25px);
-            padding: 2.5rem;
-            box-shadow: 0 20px 60px rgba(255, 0, 255, 0.3);
-            position: relative;
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
-        .reservation-terminal::before {
-            content: 'PARKING_TERMINAL_v3.7';
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--cyber-magenta);
-            opacity: 0.5;
-        }
-
-        .terminal-header {
+        .panel-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 1rem;
             margin-bottom: 2rem;
             padding-bottom: 1rem;
-            border-bottom: 2px solid var(--cyber-cyan);
+            border-bottom: 1px solid var(--border-secondary);
         }
 
-        .terminal-header h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
+        .panel-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--cyber-cyan), var(--cyber-magenta));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-transform: uppercase;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
-        .terminal-status {
-            margin-left: auto;
+        .panel-status {
             padding: 0.5rem 1rem;
-            background: rgba(0, 255, 65, 0.2);
-            border: 1px solid var(--tier-standard);
-            border-radius: 50px;
-            font-family: 'Share Tech Mono', monospace;
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid var(--jarvis-success);
+            border-radius: 20px;
             font-size: 0.8rem;
-            color: var(--tier-standard);
+            color: var(--jarvis-success);
+            font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        /* Form Styling */
-        .cyber-form {
+        /* Form Elements */
+        .interface-form {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
 
-        .form-field {
+        .form-group {
             position: relative;
         }
 
-        .form-field label {
+        .form-group label {
             display: block;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            color: var(--cyber-cyan);
+            font-size: 0.85rem;
+            color: var(--jarvis-blue);
             margin-bottom: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .form-field input,
-        .form-field select {
+        .form-group input,
+        .form-group select {
             width: 100%;
-            padding: 1.2rem;
-            background: rgba(10, 14, 39, 0.8);
-            border: 2px solid var(--cyber-cyan);
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            padding: 1rem;
+            background: rgba(10, 14, 23, 0.6);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
             color: var(--text-primary);
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .form-field input:focus,
-        .form-field select:focus {
-            outline: none;
-            border-color: var(--cyber-magenta);
-            box-shadow: 0 0 20px var(--cyber-magenta-glow), inset 0 0 20px rgba(255, 0, 255, 0.1);
-            background: rgba(10, 14, 39, 1);
-        }
-
-        .form-field input::placeholder {
-            color: var(--text-muted);
-            font-style: italic;
-        }
-
-        /* Tier Info Panels */
-        .tier-panel {
-            background: rgba(0, 255, 65, 0.05);
-            border: 2px solid var(--tier-standard);
-            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-            padding: 1.5rem;
-            margin-top: 1rem;
-            display: none;
-            animation: panel-slide 0.3s ease;
-        }
-
-        @keyframes panel-slide {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .tier-panel.active {
-            display: block;
-        }
-
-        .tier-panel.priority {
-            background: rgba(255, 149, 0, 0.05);
-            border-color: var(--tier-priority);
-        }
-
-        .tier-panel.vip {
-            background: rgba(255, 0, 128, 0.05);
-            border-color: var(--tier-vip);
-        }
-
-        .panel-benefits {
-            display: grid;
-            gap: 0.75rem;
-        }
-
-        .panel-benefit {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            color: var(--text-secondary);
             font-size: 1rem;
-        }
-
-        .benefit-icon {
-            color: var(--cyber-cyan);
-            font-size: 1.2rem;
-        }
-
-        /* Cyber Buttons */
-        .cyber-btn {
-            padding: 1.2rem 2.5rem;
-            border: none;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
+            font-weight: 500;
             transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
-        .cyber-btn-primary {
-            background: linear-gradient(135deg, var(--cyber-cyan), var(--cyber-magenta));
-            color: var(--cyber-black);
-            clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
-            box-shadow: 0 5px 25px var(--cyber-cyan-glow);
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--jarvis-blue);
+            box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.1);
+            background: rgba(10, 14, 23, 0.8);
         }
 
-        .cyber-btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s;
+        .form-group input::placeholder {
+            color: var(--text-muted);
         }
 
-        .cyber-btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 40px var(--cyber-magenta-glow);
-        }
-
-        .cyber-btn-primary:hover::before {
-            left: 100%;
-        }
-
-        .cyber-btn-secondary {
-            background: transparent;
-            border: 2px solid var(--cyber-cyan);
-            color: var(--cyber-cyan);
-            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-        }
-
-        .cyber-btn-secondary:hover {
-            background: rgba(0, 255, 249, 0.1);
-            box-shadow: 0 0 30px var(--cyber-cyan-glow);
-        }
-
-        .cyber-btn-danger {
-            background: linear-gradient(135deg, var(--cyber-pink), #ff0000);
-            color: white;
-            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-        }
-
-        .cyber-btn-danger:hover {
-            box-shadow: 0 0 40px rgba(255, 0, 110, 0.6);
-        }
-
-        /* Results Section */
-        .results-section {
+        /* Tier Info Panel */
+        .tier-info {
+            background: rgba(30, 144, 255, 0.05);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-top: 0.75rem;
             display: none;
-            margin-top: 2rem;
-            animation: fadeInUp 0.5s ease;
         }
 
-        @keyframes fadeInUp {
+        .tier-info.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(-10px);
             }
             to {
                 opacity: 1;
@@ -817,47 +486,128 @@
             }
         }
 
+        .tier-info.priority {
+            background: rgba(255, 179, 0, 0.05);
+            border-color: rgba(255, 179, 0, 0.2);
+        }
+
+        .tier-info.vip {
+            background: rgba(255, 165, 0, 0.05);
+            border-color: rgba(255, 165, 0, 0.2);
+        }
+
+        .tier-features {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .tier-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .tier-feature i {
+            color: var(--jarvis-blue);
+            width: 20px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--jarvis-blue), var(--jarvis-blue-light));
+            color: white;
+            box-shadow: 0 4px 15px var(--jarvis-blue-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--jarvis-blue-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--border-primary);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--jarvis-blue);
+            background: rgba(30, 144, 255, 0.1);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--jarvis-danger), #ff6b35);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            box-shadow: 0 6px 20px rgba(255, 61, 0, 0.4);
+        }
+
+        /* Results Section */
+        .results-section {
+            display: none;
+            margin-top: 2rem;
+        }
+
         .results-section.active {
             display: block;
+            animation: fadeIn 0.5s ease;
         }
 
         .results-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             padding-bottom: 1rem;
-            border-bottom: 2px solid var(--cyber-cyan);
+            border-bottom: 1px solid var(--border-secondary);
         }
 
         .results-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            color: var(--cyber-cyan);
-            text-transform: uppercase;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
         }
 
         .results-count {
-            font-family: 'Share Tech Mono', monospace;
-            color: var(--cyber-yellow);
-            font-size: 1.1rem;
+            color: var(--jarvis-gold);
+            font-weight: 600;
         }
 
         /* Location Cards */
         .locations-grid {
             display: grid;
-            gap: 1.5rem;
+            gap: 1.25rem;
         }
 
         .location-card {
-            background: rgba(20, 27, 45, 0.8);
-            border: 2px solid var(--cyber-cyan);
-            clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
-            padding: 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-primary);
+            border-radius: 12px;
+            padding: 1.5rem;
             cursor: pointer;
+            transition: all 0.3s;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s;
         }
 
         .location-card::before {
@@ -865,17 +615,17 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
+            width: 3px;
             height: 100%;
-            background: linear-gradient(180deg, var(--cyber-cyan), var(--cyber-magenta));
+            background: var(--jarvis-blue);
             opacity: 0;
             transition: opacity 0.3s;
         }
 
         .location-card:hover {
-            transform: translateX(10px);
-            border-color: var(--cyber-magenta);
-            box-shadow: 0 10px 50px var(--cyber-magenta-glow);
+            transform: translateX(5px);
+            border-color: var(--jarvis-blue);
+            box-shadow: 0 10px 40px rgba(30, 144, 255, 0.15);
         }
 
         .location-card:hover::before {
@@ -886,155 +636,137 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
         }
 
         .location-name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 0.5rem;
         }
 
         .location-address {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .status-badge {
-            padding: 0.6rem 1.2rem;
-            clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
-            font-family: 'Share Tech Mono', monospace;
+        .availability-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
             font-size: 0.85rem;
-            font-weight: 700;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            text-transform: uppercase;
         }
 
-        .status-badge.available {
-            background: rgba(0, 255, 65, 0.2);
-            color: var(--tier-standard);
-            border: 1px solid var(--tier-standard);
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+        .availability-badge.available {
+            background: rgba(0, 230, 118, 0.1);
+            color: var(--jarvis-success);
+            border: 1px solid var(--jarvis-success);
         }
 
-        .status-badge.filling {
-            background: rgba(255, 149, 0, 0.2);
-            color: var(--tier-priority);
-            border: 1px solid var(--tier-priority);
-            box-shadow: 0 0 15px rgba(255, 149, 0, 0.3);
+        .availability-badge.filling {
+            background: rgba(255, 179, 0, 0.1);
+            color: var(--jarvis-warning);
+            border: 1px solid var(--jarvis-warning);
         }
 
-        .status-badge.full {
-            background: rgba(255, 0, 110, 0.2);
-            color: var(--cyber-pink);
-            border: 1px solid var(--cyber-pink);
-            box-shadow: 0 0 15px rgba(255, 0, 110, 0.3);
+        .availability-badge.full {
+            background: rgba(255, 61, 0, 0.1);
+            color: var(--jarvis-danger);
+            border: 1px solid var(--jarvis-danger);
         }
 
         .location-details {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 1rem;
-            margin: 1.5rem 0;
+            margin: 1.25rem 0;
         }
 
-        .detail-box {
+        .detail-item {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem;
-            background: rgba(0, 255, 249, 0.05);
-            border: 1px solid rgba(0, 255, 249, 0.2);
-            clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
-        }
-
-        .detail-icon {
-            color: var(--cyber-cyan);
-            font-size: 1.2rem;
-        }
-
-        .detail-text {
-            font-size: 0.95rem;
+            gap: 0.5rem;
             color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .detail-item i {
+            color: var(--jarvis-blue);
         }
 
         .location-features {
             display: flex;
             gap: 0.75rem;
             flex-wrap: wrap;
-            margin: 1.5rem 0;
+            margin: 1.25rem 0;
         }
 
-        .feature-tag {
-            padding: 0.5rem 1rem;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid var(--cyber-blue);
-            clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
-            font-size: 0.85rem;
-            color: var(--cyber-blue);
-            font-family: 'Share Tech Mono', monospace;
+        .feature-badge {
+            padding: 0.4rem 0.8rem;
+            background: rgba(30, 144, 255, 0.1);
+            border: 1px solid var(--border-primary);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--jarvis-blue);
         }
 
         .location-stats {
             display: flex;
             gap: 2rem;
-            padding-top: 1.5rem;
-            margin-top: 1.5rem;
-            border-top: 1px solid rgba(0, 255, 249, 0.2);
+            padding-top: 1.25rem;
+            margin-top: 1.25rem;
+            border-top: 1px solid var(--border-secondary);
         }
 
-        .stat-box {
+        .stat-item {
             flex: 1;
         }
 
-        .stat-box-label {
+        .stat-item-label {
             font-size: 0.75rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
         }
 
-        .stat-box-value {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+        .stat-item-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--cyber-cyan), var(--cyber-yellow));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--jarvis-blue);
+            margin-top: 0.25rem;
         }
 
-        .floors-badge {
+        .floors-indicator {
             position: absolute;
-            top: 2rem;
-            right: 2rem;
-            padding: 0.6rem 1.2rem;
-            background: rgba(157, 0, 255, 0.2);
-            border: 1px solid var(--cyber-purple);
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            font-family: 'Share Tech Mono', monospace;
+            top: 1.5rem;
+            right: 1.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 165, 0, 0.1);
+            border: 1px solid rgba(255, 165, 0, 0.3);
+            border-radius: 6px;
             font-size: 0.85rem;
-            color: var(--cyber-purple);
-            font-weight: 700;
+            color: var(--jarvis-gold);
+            font-weight: 600;
         }
 
-        /* Modal - Cyberpunk Style */
-        .cyber-modal {
+        /* Modal */
+        .modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(10px);
             z-index: 3000;
             justify-content: center;
@@ -1043,32 +775,32 @@
             overflow-y: auto;
         }
 
-        .cyber-modal.active {
+        .modal.active {
             display: flex;
         }
 
-        .modal-container {
-            background: var(--cyber-dark);
-            border: 3px solid var(--cyber-cyan);
-            clip-path: polygon(30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 30px);
-            padding: 3rem;
+        .modal-content {
+            background: var(--jarvis-bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 16px;
+            padding: 2.5rem;
             max-width: 1200px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
-            box-shadow: 0 0 100px var(--cyber-cyan-glow);
-            animation: modalZoomIn 0.4s ease;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+            animation: modalSlide 0.3s ease;
         }
 
-        @keyframes modalZoomIn {
+        @keyframes modalSlide {
             from {
                 opacity: 0;
-                transform: scale(0.8);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
-                transform: scale(1);
+                transform: translateY(0);
             }
         }
 
@@ -1076,42 +808,35 @@
             position: absolute;
             top: 2rem;
             right: 2rem;
-            width: 50px;
-            height: 50px;
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            background: rgba(255, 0, 110, 0.2);
-            border: 2px solid var(--cyber-pink);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(255, 61, 0, 0.1);
+            border: 1px solid rgba(255, 61, 0, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 1.5rem;
-            color: var(--cyber-pink);
+            color: var(--jarvis-danger);
         }
 
         .modal-close:hover {
-            background: var(--cyber-pink);
-            color: var(--cyber-black);
-            transform: rotate(90deg);
-            box-shadow: 0 0 30px var(--cyber-pink);
+            background: var(--jarvis-danger);
+            color: white;
         }
 
         .modal-header {
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             padding-bottom: 1.5rem;
-            border-bottom: 2px solid var(--cyber-magenta);
+            border-bottom: 1px solid var(--border-secondary);
         }
 
         .modal-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--cyber-cyan), var(--cyber-magenta));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-transform: uppercase;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
             margin-bottom: 0.5rem;
         }
 
@@ -1120,262 +845,215 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 1.1rem;
         }
 
-        /* Tier Filter - Cyberpunk */
-        .tier-filter-panel {
+        /* Tier Filter */
+        .tier-filter {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-            padding: 2rem;
-            background: rgba(10, 14, 39, 0.6);
-            border: 2px solid var(--cyber-cyan);
-            clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
         }
 
         .tier-filter-btn {
-            padding: 1.2rem;
-            border: 2px solid;
+            padding: 1rem;
+            border: 1px solid var(--border-primary);
             background: transparent;
-            clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 1rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.75rem;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
+            gap: 0.5rem;
+            color: var(--text-secondary);
         }
 
-        .tier-filter-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: currentColor;
-            opacity: 0.1;
-            transition: left 0.5s;
+        .tier-filter-btn:hover {
+            border-color: var(--jarvis-blue);
+            background: rgba(30, 144, 255, 0.05);
+            color: var(--jarvis-blue);
         }
 
-        .tier-filter-btn:hover::before {
-            left: 100%;
-        }
-
-        .tier-filter-btn.standard {
-            border-color: var(--tier-standard);
-            color: var(--tier-standard);
-        }
-
-        .tier-filter-btn.priority {
-            border-color: var(--tier-priority);
-            color: var(--tier-priority);
-        }
-
-        .tier-filter-btn.vip {
-            border-color: var(--tier-vip);
-            color: var(--tier-vip);
-        }
-
-        .tier-filter-btn.active.standard {
-            background: var(--tier-standard);
-            color: var(--cyber-black);
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
-        }
-
-        .tier-filter-btn.active.priority {
-            background: var(--tier-priority);
-            color: var(--cyber-black);
-            box-shadow: 0 0 30px rgba(255, 149, 0, 0.5);
-        }
-
-        .tier-filter-btn.active.vip {
-            background: var(--tier-vip);
+        .tier-filter-btn.active {
+            background: var(--jarvis-blue);
+            border-color: var(--jarvis-blue);
             color: white;
-            box-shadow: 0 0 30px rgba(255, 0, 128, 0.5);
+            box-shadow: 0 4px 15px var(--jarvis-blue-glow);
         }
 
         /* Floor Cards */
-        .floors-container {
+        .floors-grid {
             display: grid;
-            gap: 2.5rem;
+            gap: 2rem;
         }
 
-        .floor-panel {
-            background: rgba(20, 27, 45, 0.6);
-            border: 2px solid var(--cyber-cyan);
-            clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
-            padding: 2rem;
+        .floor-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--border-primary);
+            border-radius: 12px;
+            padding: 1.5rem;
             transition: all 0.3s;
         }
 
-        .floor-panel:hover {
-            border-color: var(--cyber-magenta);
-            box-shadow: 0 0 40px var(--cyber-magenta-glow);
+        .floor-card:hover {
+            border-color: var(--jarvis-blue);
         }
 
-        .floor-header-row {
+        .floor-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             padding-bottom: 1rem;
-            border-bottom: 2px solid rgba(0, 255, 249, 0.3);
+            border-bottom: 1px solid var(--border-secondary);
         }
 
-        .floor-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--cyber-cyan);
-            text-transform: uppercase;
-        }
-
-        .floor-availability-badge {
-            padding: 0.75rem 1.5rem;
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 1rem;
+        .floor-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
             font-weight: 700;
+            color: var(--text-primary);
         }
 
-        .floor-availability-badge.high {
-            background: rgba(0, 255, 65, 0.2);
-            color: var(--tier-standard);
-            border: 2px solid var(--tier-standard);
+        .floor-availability {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
         }
 
-        .floor-availability-badge.medium {
-            background: rgba(255, 149, 0, 0.2);
-            color: var(--tier-priority);
-            border: 2px solid var(--tier-priority);
+        .floor-availability.high {
+            background: rgba(0, 230, 118, 0.1);
+            color: var(--jarvis-success);
+            border: 1px solid var(--jarvis-success);
         }
 
-        .floor-availability-badge.low {
-            background: rgba(255, 0, 110, 0.2);
-            color: var(--cyber-pink);
-            border: 2px solid var(--cyber-pink);
+        .floor-availability.medium {
+            background: rgba(255, 179, 0, 0.1);
+            color: var(--jarvis-warning);
+            border: 1px solid var(--jarvis-warning);
         }
 
-        .floor-stats-grid {
+        .floor-availability.low {
+            background: rgba(255, 61, 0, 0.1);
+            color: var(--jarvis-danger);
+            border: 1px solid var(--jarvis-danger);
+        }
+
+        .floor-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(0, 255, 249, 0.2);
-            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
         }
 
-        .floor-stat-item {
+        .floor-stat {
             text-align: center;
         }
 
         .floor-stat-label {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
         }
 
         .floor-stat-value {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            font-weight: 900;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 0.25rem;
         }
 
-        /* Parking Spots Grid */
+        /* Parking Spots */
         .spots-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, 80px);
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, 75px);
+            gap: 12px;
             justify-content: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .parking-spot {
-            width: 80px;
-            height: 80px;
-            border: 2px solid;
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            width: 75px;
+            height: 75px;
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-family: 'Share Tech Mono', monospace;
             font-size: 0.75rem;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
             position: relative;
             transition: all 0.3s;
+            background: rgba(0, 0, 0, 0.2);
         }
 
         .spot-icon {
-            font-size: 2rem;
+            font-size: 1.5rem;
             margin-bottom: 0.25rem;
         }
 
-        .tier-indicator {
+        .tier-dot {
             position: absolute;
-            top: 4px;
-            right: 4px;
-            width: 16px;
-            height: 16px;
+            top: 6px;
+            right: 6px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            border: 2px solid var(--cyber-dark);
+            border: 2px solid var(--jarvis-bg);
         }
 
-        .tier-indicator.standard {
-            background: var(--tier-standard);
-            box-shadow: 0 0 10px var(--tier-standard);
+        .tier-dot.standard {
+            background: var(--jarvis-success);
         }
 
-        .tier-indicator.priority {
-            background: var(--tier-priority);
-            box-shadow: 0 0 10px var(--tier-priority);
+        .tier-dot.priority {
+            background: var(--jarvis-warning);
         }
 
-        .tier-indicator.vip {
-            background: var(--tier-vip);
-            box-shadow: 0 0 10px var(--tier-vip);
+        .tier-dot.vip {
+            background: var(--jarvis-gold);
         }
 
         .parking-spot.available {
-            background: rgba(0, 255, 65, 0.1);
-            border-color: var(--tier-standard);
-            color: var(--tier-standard);
+            background: rgba(0, 230, 118, 0.1);
+            border-color: var(--jarvis-success);
+            color: var(--jarvis-success);
         }
 
         .parking-spot.available:hover {
-            background: var(--tier-standard);
-            color: var(--cyber-black);
-            transform: scale(1.25) rotate(5deg);
-            box-shadow: 0 10px 40px rgba(0, 255, 65, 0.6);
+            background: var(--jarvis-success);
+            color: white;
+            transform: scale(1.15);
+            box-shadow: 0 8px 25px rgba(0, 230, 118, 0.4);
             z-index: 10;
         }
 
         .parking-spot.occupied {
-            background: rgba(255, 0, 110, 0.1);
-            border-color: var(--cyber-pink);
-            color: var(--cyber-pink);
+            background: rgba(255, 61, 0, 0.1);
+            border-color: var(--jarvis-danger);
+            color: var(--jarvis-danger);
             cursor: not-allowed;
             opacity: 0.5;
         }
 
         .parking-spot.reserved {
-            background: rgba(255, 149, 0, 0.1);
-            border-color: var(--tier-priority);
-            color: var(--tier-priority);
+            background: rgba(255, 179, 0, 0.1);
+            border-color: var(--jarvis-warning);
+            color: var(--jarvis-warning);
             cursor: not-allowed;
             opacity: 0.6;
         }
@@ -1387,229 +1065,155 @@
         /* Legend */
         .spots-legend {
             display: flex;
-            gap: 2.5rem;
+            gap: 2rem;
             justify-content: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid rgba(0, 255, 249, 0.2);
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-secondary);
             flex-wrap: wrap;
         }
 
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            font-family: 'Share Tech Mono', monospace;
+            gap: 0.75rem;
             font-size: 0.9rem;
+            color: var(--text-secondary);
         }
 
-        .legend-indicator {
-            width: 32px;
-            height: 32px;
-            clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
-            border: 2px solid;
+        .legend-box {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: 1px solid;
         }
 
-        .legend-indicator.tier-standard {
-            background: var(--tier-standard);
-            border-color: var(--tier-standard);
+        .legend-box.standard {
+            background: var(--jarvis-success);
+            border-color: var(--jarvis-success);
         }
 
-        .legend-indicator.tier-priority {
-            background: var(--tier-priority);
-            border-color: var(--tier-priority);
+        .legend-box.priority {
+            background: var(--jarvis-warning);
+            border-color: var(--jarvis-warning);
         }
 
-        .legend-indicator.tier-vip {
-            background: var(--tier-vip);
-            border-color: var(--tier-vip);
+        .legend-box.vip {
+            background: var(--jarvis-gold);
+            border-color: var(--jarvis-gold);
         }
 
-        /* Timer Display */
+        /* Timer Panel */
         .timer-panel {
-            background: rgba(20, 27, 45, 0.95);
-            border: 3px solid var(--cyber-cyan);
-            clip-path: polygon(25px 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%, 0 25px);
-            padding: 3rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--jarvis-blue);
+            border-radius: 12px;
+            padding: 2.5rem;
             text-align: center;
             margin-top: 2rem;
             display: none;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 60px var(--cyber-cyan-glow);
-        }
-
-        .timer-panel::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, var(--cyber-cyan), transparent 30%);
-            animation: rotate-conic 4s linear infinite;
-            opacity: 0.1;
-        }
-
-        @keyframes rotate-conic {
-            100% { transform: rotate(360deg); }
+            box-shadow: 0 0 40px rgba(30, 144, 255, 0.2);
         }
 
         .timer-panel.active {
             display: block;
-            animation: panel-pop 0.5s ease;
-        }
-
-        @keyframes panel-pop {
-            0% {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
+            animation: fadeIn 0.5s ease;
         }
 
         .timer-panel.danger {
-            border-color: var(--cyber-pink);
-            box-shadow: 0 0 60px rgba(255, 0, 110, 0.5);
+            border-color: var(--jarvis-danger);
+            box-shadow: 0 0 40px rgba(255, 61, 0, 0.2);
         }
 
-        .timer-panel > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        .timer-header-text {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--cyber-cyan);
+        .timer-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
             margin-bottom: 1rem;
-            text-transform: uppercase;
         }
 
         .timer-countdown {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 6rem;
-            font-weight: 900;
-            color: var(--cyber-cyan);
-            text-shadow: 
-                0 0 20px var(--cyber-cyan),
-                0 0 40px var(--cyber-cyan),
-                0 0 60px var(--cyber-cyan);
-            margin: 2rem 0;
-            letter-spacing: 5px;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: var(--jarvis-blue);
+            margin: 1.5rem 0;
+            letter-spacing: 0.05em;
         }
 
         .timer-panel.danger .timer-countdown {
-            color: var(--cyber-pink);
-            text-shadow: 
-                0 0 20px var(--cyber-pink),
-                0 0 40px var(--cyber-pink),
-                0 0 60px var(--cyber-pink);
-            animation: timer-pulse 1s infinite;
+            color: var(--jarvis-danger);
+            animation: pulse 1s infinite;
         }
 
-        @keyframes timer-pulse {
-            0%, 100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.7;
-                transform: scale(1.05);
-            }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
 
         .timer-progress {
-            height: 15px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid var(--cyber-cyan);
-            clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+            height: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
             overflow: hidden;
-            margin: 2rem 0;
-            position: relative;
+            margin: 1.5rem 0;
         }
 
         .timer-progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--cyber-cyan), var(--cyber-magenta));
+            background: linear-gradient(90deg, var(--jarvis-blue), var(--jarvis-blue-light));
             transition: width 1s linear;
-            box-shadow: 0 0 20px var(--cyber-cyan-glow);
-            position: relative;
-        }
-
-        .timer-progress-fill::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer-progress 2s linear infinite;
-        }
-
-        @keyframes shimmer-progress {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+            border-radius: 10px;
         }
 
         .timer-panel.danger .timer-progress-fill {
-            background: linear-gradient(90deg, var(--cyber-pink), #ff0000);
+            background: linear-gradient(90deg, var(--jarvis-danger), #ff6b35);
         }
 
-        .timer-info-panel {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(0, 255, 249, 0.3);
-            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-            padding: 2rem;
-            margin: 2rem 0;
+        .timer-info {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
         }
 
-        .timer-details-grid {
+        .timer-details {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
+            gap: 1rem;
         }
 
         .timer-detail {
             display: flex;
             justify-content: space-between;
-            padding: 1rem;
-            background: rgba(0, 255, 249, 0.05);
-            border-left: 3px solid var(--cyber-cyan);
+            padding: 0.75rem;
+            background: rgba(30, 144, 255, 0.05);
+            border-radius: 6px;
         }
 
         .timer-detail-label {
             color: var(--text-muted);
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .timer-detail-value {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            color: var(--cyber-cyan);
-            font-size: 1rem;
+            font-weight: 600;
+            color: var(--jarvis-blue);
         }
 
         .timer-fee {
             text-align: center;
-            margin-top: 1.5rem;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--cyber-yellow);
-            text-shadow: 0 0 20px var(--cyber-yellow-glow);
+            margin-top: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--jarvis-gold);
         }
 
         .timer-actions {
-            margin-top: 2.5rem;
+            margin-top: 2rem;
             display: flex;
-            gap: 1.5rem;
+            gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
         }
@@ -1618,106 +1222,72 @@
         .success-panel {
             display: none;
             margin-top: 2rem;
-            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 212, 255, 0.1));
-            border: 3px solid var(--tier-standard);
-            clip-path: polygon(25px 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%, 0 25px);
-            padding: 4rem;
+            background: linear-gradient(135deg, rgba(0, 230, 118, 0.1), rgba(30, 144, 255, 0.05));
+            border: 1px solid var(--jarvis-success);
+            border-radius: 12px;
+            padding: 3rem;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 60px rgba(0, 255, 65, 0.4);
-        }
-
-        .success-panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.2), transparent);
-            animation: success-shimmer 2s infinite;
-        }
-
-        @keyframes success-shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
         }
 
         .success-panel.active {
             display: block;
-            animation: success-bounce 0.6s ease;
-        }
-
-        @keyframes success-bounce {
-            0% {
-                opacity: 0;
-                transform: scale(0.3) rotate(-180deg);
-            }
-            50% {
-                transform: scale(1.1) rotate(0deg);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
+            animation: fadeIn 0.5s ease;
         }
 
         .success-icon {
-            font-size: 6rem;
-            margin-bottom: 2rem;
-            animation: success-icon-pop 0.6s ease 0.3s backwards;
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            animation: scaleIn 0.5s ease;
         }
 
-        @keyframes success-icon-pop {
-            0% {
-                transform: scale(0) rotate(-180deg);
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
             }
-            50% {
-                transform: scale(1.2) rotate(0deg);
-            }
-            100% {
-                transform: scale(1) rotate(0deg);
+            to {
+                opacity: 1;
+                transform: scale(1);
             }
         }
 
         .success-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--tier-standard);
-            text-transform: uppercase;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--jarvis-success);
             margin-bottom: 1rem;
-            text-shadow: 0 0 20px rgba(0, 255, 65, 0.6);
         }
 
         .success-message {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--text-secondary);
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
         }
 
-        /* Notification Toast */
-        .cyber-toast {
+        /* Notification */
+        .notification {
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            background: rgba(20, 27, 45, 0.95);
-            border: 2px solid var(--cyber-cyan);
-            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-            padding: 1.5rem 2rem;
-            box-shadow: 0 10px 50px var(--cyber-cyan-glow);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-primary);
+            border-left: 4px solid var(--jarvis-blue);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             display: none;
             align-items: center;
             gap: 1rem;
             z-index: 5000;
-            animation: toast-slide 0.4s ease;
             max-width: 400px;
+            animation: slideIn 0.3s ease;
         }
 
-        @keyframes toast-slide {
+        @keyframes slideIn {
             from {
-                transform: translateX(500px);
+                transform: translateX(400px);
                 opacity: 0;
             }
             to {
@@ -1726,208 +1296,154 @@
             }
         }
 
-        .cyber-toast.active {
+        .notification.active {
             display: flex;
         }
 
-        .toast-icon {
-            font-size: 2rem;
-            color: var(--cyber-cyan);
+        .notification-icon {
+            font-size: 1.5rem;
+            color: var(--jarvis-blue);
         }
 
-        .toast-content {
+        .notification-content {
             flex: 1;
         }
 
-        .toast-title {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            color: var(--cyber-cyan);
+        .notification-title {
+            font-weight: 600;
+            color: var(--text-primary);
             margin-bottom: 0.25rem;
         }
 
-        .toast-message {
+        .notification-message {
             color: var(--text-secondary);
             font-size: 0.9rem;
         }
 
-        /* Section Styling */
-        .cyber-section {
-            padding: 6rem 2rem;
-            position: relative;
+        /* Section */
+        .section {
+            padding: 5rem 2rem;
         }
 
-        .cyber-section .container {
+        .section .container {
             max-width: 1600px;
             margin: 0 auto;
         }
 
-        .section-heading {
+        .section-header {
             text-align: center;
             margin-bottom: 4rem;
         }
 
         .section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--cyber-cyan), var(--cyber-magenta), var(--cyber-yellow));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-transform: uppercase;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
             margin-bottom: 1rem;
         }
 
         .section-subtitle {
-            font-size: 1.3rem;
+            font-size: 1.15rem;
             color: var(--text-secondary);
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
-        /* Tiers Section */
-        .tiers-showcase {
+        /* Tiers Grid */
+        .tiers-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2.5rem;
+            gap: 2rem;
         }
 
-        .tier-showcase-card {
-            background: rgba(20, 27, 45, 0.8);
-            border: 3px solid;
-            clip-path: polygon(25px 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%, 0 25px);
-            padding: 3rem;
-            transition: all 0.4s;
+        .tier-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-primary);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.3s;
             position: relative;
-            overflow: hidden;
         }
 
-        .tier-showcase-card::before {
-            content: '';
+        .tier-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--jarvis-blue);
+            box-shadow: 0 20px 60px rgba(30, 144, 255, 0.2);
+        }
+
+        .tier-card.featured {
+            border-color: var(--jarvis-blue);
+            box-shadow: 0 10px 40px rgba(30, 144, 255, 0.15);
+        }
+
+        .tier-badge {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent, currentColor);
-            opacity: 0.05;
-            transition: opacity 0.4s;
-        }
-
-        .tier-showcase-card:hover::before {
-            opacity: 0.1;
-        }
-
-        .tier-showcase-card.standard {
-            border-color: var(--tier-standard);
-            color: var(--tier-standard);
-        }
-
-        .tier-showcase-card.priority {
-            border-color: var(--tier-priority);
-            color: var(--tier-priority);
-        }
-
-        .tier-showcase-card.vip-showcase {
-            border-color: var(--tier-vip);
-            color: var(--tier-vip);
-        }
-
-        .tier-showcase-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 20px 80px currentColor;
-        }
-
-        .tier-showcase-card.featured {
-            transform: scale(1.05);
-            border-width: 4px;
-        }
-
-        .tier-badge-featured {
-            position: absolute;
-            top: -15px;
+            top: -12px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--cyber-cyan), var(--cyber-magenta));
-            color: var(--cyber-black);
-            padding: 0.6rem 1.5rem;
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 800;
+            background: var(--jarvis-blue);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 0 30px var(--cyber-cyan-glow);
+            letter-spacing: 0.5px;
         }
 
-        .tier-emoji {
-            font-size: 4rem;
+        .tier-icon {
+            font-size: 3rem;
             margin-bottom: 1.5rem;
         }
 
-        .tier-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            font-weight: 800;
+        .tier-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            text-transform: uppercase;
         }
 
-        .tier-price-display {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin: 1.5rem 0;
+        .tier-price {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--jarvis-blue);
+            margin: 1rem 0;
         }
 
-        .tier-price-display span {
-            font-size: 1.2rem;
+        .tier-price span {
+            font-size: 1rem;
             color: var(--text-muted);
         }
 
-        .tier-perks {
-            margin: 2.5rem 0;
+        .tier-features-list {
+            margin: 2rem 0;
         }
 
-        .tier-perks li {
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .tier-features-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-secondary);
             color: var(--text-secondary);
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
             list-style: none;
-            font-size: 1rem;
         }
 
-        .tier-perks li:last-child {
+        .tier-features-list li:last-child {
             border-bottom: none;
         }
 
-        .tier-perks li i {
-            color: currentColor;
-            font-size: 1.2rem;
+        .tier-features-list li i {
+            color: var(--jarvis-success);
         }
 
         /* Footer */
         footer {
-            background: var(--cyber-darker);
-            border-top: 3px solid var(--cyber-cyan);
+            background: var(--jarvis-bg-secondary);
+            border-top: 1px solid var(--border-secondary);
             padding: 4rem 2rem 2rem;
-            position: relative;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--cyber-cyan), var(--cyber-magenta), var(--cyber-yellow), var(--cyber-cyan));
-            background-size: 200% 100%;
-            animation: gradient-flow 3s ease infinite;
         }
 
         footer .container {
@@ -1937,47 +1453,42 @@
         }
 
         .footer-logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--cyber-cyan), var(--cyber-magenta));
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--jarvis-blue), var(--jarvis-gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .footer-text {
             color: var(--text-secondary);
             max-width: 700px;
-            margin: 0 auto 2.5rem;
-            line-height: 1.8;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
         }
 
         .footer-divider {
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--cyber-cyan), transparent);
-            margin: 2.5rem 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-primary), transparent);
+            margin: 2rem 0;
         }
 
         .footer-bottom {
             color: var(--text-muted);
-            font-family: 'Share Tech Mono', monospace;
             font-size: 0.9rem;
         }
 
         /* Responsive */
-        @media (max-width: 1400px) {
+        @media (max-width: 1200px) {
             .hero .container {
                 grid-template-columns: 1fr;
             }
 
-            .tiers-showcase {
+            .tiers-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .tier-showcase-card.featured {
-                transform: scale(1);
             }
         }
 
@@ -1986,7 +1497,8 @@
                 display: none;
             }
 
-            .system-bar .container {
+            .system-info {
+                flex-wrap: wrap;
                 justify-content: center;
             }
 
@@ -1994,106 +1506,83 @@
                 font-size: 2.5rem;
             }
 
-            .cyber-stats {
+            .stats-grid {
                 grid-template-columns: 1fr;
             }
 
             .timer-countdown {
-                font-size: 3.5rem;
+                font-size: 3rem;
             }
 
             .spots-grid {
-                grid-template-columns: repeat(auto-fill, 70px);
-                gap: 12px;
+                grid-template-columns: repeat(auto-fill, 65px);
+                gap: 10px;
             }
 
             .parking-spot {
-                width: 70px;
-                height: 70px;
+                width: 65px;
+                height: 65px;
             }
 
-            .tier-filter-panel {
+            .tier-filter {
                 grid-template-columns: 1fr;
             }
 
-            .floor-stats-grid {
+            .floor-stats {
                 grid-template-columns: 1fr;
             }
 
-            .timer-details-grid {
+            .timer-details {
                 grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 2.5rem;
             }
         }
 
-        /* Custom Scrollbar - Cyberpunk */
+        /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 14px;
+            width: 10px;
         }
 
         ::-webkit-scrollbar-track {
-            background: var(--cyber-black);
-            border-left: 2px solid var(--cyber-cyan);
+            background: var(--jarvis-bg);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--cyber-cyan), var(--cyber-magenta));
-            clip-path: polygon(0 10px, 100% 0, 100% calc(100% - 10px), 0 100%);
+            background: var(--jarvis-blue);
+            border-radius: 5px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, var(--cyber-magenta), var(--cyber-yellow));
-        }
-
-        /* Additional Animations */
-        .float-animation {
-            animation: float-updown 3s ease-in-out infinite;
-        }
-
-        @keyframes float-updown {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            background: var(--jarvis-blue-light);
         }
     </style>
 </head>
 <body>
     <!-- Grid Background -->
-    <div class="cyber-grid"></div>
+    <div class="grid-background"></div>
     
-    <!-- Scanlines -->
-    <div class="scanlines"></div>
-    
-    <!-- Glowing Orbs -->
-    <div class="cyber-orbs">
-        <div class="cyber-orb orb-cyan"></div>
-        <div class="cyber-orb orb-magenta"></div>
-        <div class="cyber-orb orb-purple"></div>
-    </div>
+    <!-- Gradient Overlay -->
+    <div class="gradient-overlay"></div>
 
-    <!-- Content Layer -->
-    <div class="content-layer">
-        <!-- System Bar -->
-        <div class="system-bar">
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+        <!-- System Header -->
+        <div class="system-header">
             <div class="container">
-                <div class="system-status">
-                    <div class="status-dot"></div>
-                    <span>SYSTEM_ONLINE</span>
+                <div class="system-info">
+                    <div class="info-badge">
+                        <div class="status-indicator"></div>
+                        <span>System Online</span>
+                    </div>
+                    <div class="info-badge">
+                        <i class="fas fa-database"></i>
+                        <span>5,847 Active Spots</span>
+                    </div>
+                    <div class="info-badge">
+                        <i class="fas fa-users"></i>
+                        <span>1,234 Users Connected</span>
+                    </div>
                 </div>
-                <div class="system-status">
-                    <i class="fas fa-server"></i>
-                    <span>5,847 ACTIVE_SPOTS</span>
-                </div>
-                <div class="system-status">
-                    <i class="fas fa-users"></i>
-                    <span>1,234 USERS_CONNECTED</span>
-                </div>
-                <div class="system-status">
-                    <i class="fas fa-clock"></i>
-                    <span class="live-time" id="liveTime">00:00:00</span>
-                </div>
+                <div class="system-time" id="systemTime">00:00:00</div>
             </div>
         </div>
 
@@ -2101,15 +1590,17 @@
         <nav>
             <div class="container">
                 <a href="#" class="logo">
-                    <i class="fas fa-rocket logo-icon"></i>
-                    <span class="logo-text">PARKSMART_PRO</span>
+                    <div class="logo-icon">
+                        <i class="fas fa-parking"></i>
+                    </div>
+                    <span class="logo-text">ParkSmart Pro</span>
                 </a>
                 <ul>
-                    <li><a href="#home" class="active">HOME</a></li>
-                    <li><a href="#tiers">TIERS</a></li>
-                    <li><a href="#reserve">RESERVE</a></li>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#tiers">Pricing</a></li>
                     <li><a href="#reserve" class="nav-cta">
-                        <i class="fas fa-bolt"></i> BOOK NOW
+                        <i class="fas fa-bolt"></i> Reserve Now
                     </a></li>
                 </ul>
             </div>
@@ -2120,152 +1611,155 @@
             <div class="container">
                 <div class="hero-content">
                     <h1>
-                        <span class="glitch" data-text="SMART_PARKING">SMART_PARKING</span><br>
-                        <span class="cyber-title">TIME_LOCKED_SYSTEM</span>
+                        Intelligent Parking<br>
+                        <span class="gradient-text">Time-Locked Reservation System</span>
                     </h1>
                     <p class="hero-subtitle">
-                        Experience the future of parking management. Reserve your spot with precision timing.
-                        Our revolutionary time-lock protocol ensures zero waste and maximum efficiency.
-                        Welcome to the next generation of urban mobility.
+                        Experience precision parking management powered by advanced time-lock protocols. 
+                        Our intelligent system ensures zero wasted space, optimal efficiency, and guaranteed 
+                        spot availability through smart automation and real-time monitoring.
                     </p>
 
-                    <div class="cyber-alert">
-                        <div class="alert-header">
-                            <i class="fas fa-exclamation-triangle alert-icon"></i>
-                            <span>CRITICAL_PROTOCOL</span>
+                    <div class="protocol-box">
+                        <div class="protocol-header">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Critical Protocol</span>
                         </div>
-                        <div style="font-size: 1.2rem; font-weight: 700; margin: 1rem 0;">
-                            RESERVE → ARRIVE_WITHIN_TIME → OR_AUTO_CANCEL
+                        <div class="protocol-content">
+                            Reserve Spot → Arrive Within Time Window → Confirm Entry
                         </div>
-                        <div class="alert-timer">
-                            <i class="fas fa-hourglass-half"></i> 60:00
+                        <div class="protocol-timer">
+                            <i class="fas fa-clock"></i> 60:00 Minutes
                         </div>
-                        <p style="color: var(--text-secondary); font-family: 'Share Tech Mono', monospace; font-size: 0.95rem;">
-                            LATE = 30%_PENALTY | NO_SHOW = 100%_CHARGED
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                            Late arrival: 30% penalty • No-show: 100% charge • Auto-release system active
                         </p>
                     </div>
 
-                    <div class="cyber-stats">
-                        <div class="cyber-stat">
+                    <div class="stats-grid">
+                        <div class="stat-card">
                             <div class="stat-value">94%</div>
-                            <div class="stat-label">On-Time Arrivals</div>
+                            <div class="stat-label">On-Time Arrival Rate</div>
                         </div>
-                        <div class="cyber-stat">
+                        <div class="stat-card">
                             <div class="stat-value">2.3x</div>
                             <div class="stat-label">Faster Turnover</div>
                         </div>
-                        <div class="cyber-stat">
+                        <div class="stat-card">
                             <div class="stat-value">0%</div>
-                            <div class="stat-label">Spot Blocking</div>
+                            <div class="stat-label">Spot Hoarding</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Reservation Terminal -->
-                <div class="reservation-terminal" id="reserve">
-                    <div class="terminal-header">
-                        <h3><i class="fas fa-terminal"></i> BOOKING_TERMINAL</h3>
-                        <div class="terminal-status">
-                            <i class="fas fa-circle"></i> READY
+                <!-- Interface Panel -->
+                <div class="interface-panel" id="reserve">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <i class="fas fa-microchip"></i>
+                            Booking Interface
+                        </div>
+                        <div class="panel-status">
+                            <i class="fas fa-check-circle"></i> Ready
                         </div>
                     </div>
                     
-                    <form class="cyber-form" onsubmit="event.preventDefault(); searchParking();">
-                        <div class="form-field">
+                    <form class="interface-form" onsubmit="event.preventDefault(); searchParking();">
+                        <div class="form-group">
                             <label>
                                 <i class="fas fa-map-marker-alt"></i>
-                                DESTINATION_COORDINATES
+                                Destination
                             </label>
-                            <input type="text" id="locationInput" placeholder="Enter location..." required>
+                            <input type="text" id="locationInput" placeholder="Enter your destination..." required>
                         </div>
                         
-                        <div class="form-field">
+                        <div class="form-group">
                             <label>
                                 <i class="fas fa-calendar-alt"></i>
-                                DATETIME_STAMP
+                                Date & Time
                             </label>
                             <input type="datetime-local" id="dateTime" required>
                         </div>
 
-                        <div class="form-field">
+                        <div class="form-group">
                             <label>
                                 <i class="fas fa-layer-group"></i>
-                                ACCESS_TIER
+                                Access Tier
                             </label>
                             <select id="tierSelect" onchange="updateTierInfo()">
-                                <option value="standard">STANDARD_TIER - 60min - ₹650</option>
-                                <option value="priority">PRIORITY_TIER - 75min - ₹1,200</option>
-                                <option value="vip">VIP_ULTRA_TIER - 90min - ₹2,000</option>
+                                <option value="standard">Standard Access - 60 min - ₹650</option>
+                                <option value="priority">Priority Access - 75 min - ₹1,200</option>
+                                <option value="vip">VIP Access - 90 min - ₹2,000</option>
                             </select>
                         </div>
 
-                        <!-- Tier Panels -->
-                        <div class="tier-panel active" id="tierPanelStandard">
-                            <div class="panel-benefits">
-                                <div class="panel-benefit">
-                                    <i class="fas fa-check-circle benefit-icon"></i>
-                                    <span>Standard parking spots (any available location)</span>
+                        <!-- Tier Info Panels -->
+                        <div class="tier-info active" id="tierInfoStandard">
+                            <div class="tier-features">
+                                <div class="tier-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Standard parking spots - any available location</span>
                                 </div>
-                                <div class="panel-benefit">
-                                    <i class="fas fa-clock benefit-icon"></i>
-                                    <span>60-minute arrival window protocol</span>
+                                <div class="tier-feature">
+                                    <i class="fas fa-clock"></i>
+                                    <span>60-minute arrival window</span>
                                 </div>
-                                <div class="panel-benefit">
-                                    <i class="fas fa-headset benefit-icon"></i>
-                                    <span>Basic support channel access</span>
+                                <div class="tier-feature">
+                                    <i class="fas fa-headset"></i>
+                                    <span>Standard customer support</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="tier-panel priority" id="tierPanelPriority">
-                            <div class="panel-benefits">
-                                <div class="panel-benefit">
-                                    <i class="fas fa-star benefit-icon"></i>
-                                    <span>Enhanced location spots (optimized placement)</span>
+                        <div class="tier-info priority" id="tierInfoPriority">
+                            <div class="tier-features">
+                                <div class="tier-feature">
+                                    <i class="fas fa-star"></i>
+                                    <span>Optimized location spots - better placement</span>
                                 </div>
-                                <div class="panel-benefit">
-                                    <i class="fas fa-clock benefit-icon"></i>
-                                    <span>Extended 75-minute window + 5min grace</span>
+                                <div class="tier-feature">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Extended 75-minute window + 5 min grace period</span>
                                 </div>
-                                <div class="panel-benefit">
-                                    <i class="fas fa-car benefit-icon"></i>
+                                <div class="tier-feature">
+                                    <i class="fas fa-car"></i>
                                     <span>Wider parking spaces for comfort</span>
                                 </div>
-                                <div class="panel-benefit">
-                                    <i class="fas fa-shield-alt benefit-icon"></i>
-                                    <span>Priority support + Free cancellation rights</span>
+                                <div class="tier-feature">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Priority support + Free cancellation</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="tier-panel vip" id="tierPanelVip">
-                            <div class="panel-benefits">
-                                <div class="panel-benefit">
-                                    <i class="fas fa-crown benefit-icon"></i>
+                        <div class="tier-info vip" id="tierInfoVip">
+                            <div class="tier-features">
+                                <div class="tier-feature">
+                                    <i class="fas fa-crown"></i>
                                     <span>Premium spots near entrance/exit points</span>
                                 </div>
-                                <div class="panel-benefit">
-                                    <i class="fas fa-clock benefit-icon"></i>
-                                    <span>Maximum 90-minute window + 15min grace</span>
+                                <div class="tier-feature">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Maximum 90-minute window + 15 min grace period</span>
                                 </div>
-                                <div class="panel-benefit">
-                                    <i class="fas fa-bolt benefit-icon"></i>
+                                <div class="tier-feature">
+                                    <i class="fas fa-bolt"></i>
                                     <span>EV charging station priority access</span>
                                 </div>
-                                <div class="panel-benefit">
-                                    <i class="fas fa-umbrella benefit-icon"></i>
-                                    <span>Covered parking spots (weather protected)</span>
+                                <div class="tier-feature">
+                                    <i class="fas fa-umbrella"></i>
+                                    <span>Covered parking spots - weather protected</span>
                                 </div>
-                                <div class="panel-benefit">
-                                    <i class="fas fa-concierge-bell benefit-icon"></i>
-                                    <span>VIP support channel 24/7 + Free cancel anytime</span>
+                                <div class="tier-feature">
+                                    <i class="fas fa-concierge-bell"></i>
+                                    <span>VIP support 24/7 + Unlimited cancellation</span>
                                 </div>
                             </div>
                         </div>
 
-                        <button type="submit" class="cyber-btn cyber-btn-primary">
+                        <button type="submit" class="btn btn-primary">
                             <i class="fas fa-search"></i>
-                            SCAN_AVAILABLE_SPOTS
+                            Scan Available Locations
                         </button>
                     </form>
 
@@ -2273,25 +1767,25 @@
                     <div class="results-section" id="resultsSection">
                         <div class="results-header">
                             <div class="results-title">
-                                <i class="fas fa-satellite-dish"></i> SCAN_RESULTS
+                                <i class="fas fa-map-marked-alt"></i> Available Locations
                             </div>
                             <div class="results-count">
-                                <span id="resultsCount">5</span> LOCATIONS_DETECTED
+                                <span id="resultsCount">5</span> locations found
                             </div>
                         </div>
                         
                         <div class="locations-grid" id="locationsGrid">
-                            <!-- Locations will be inserted here by JavaScript -->
+                            <!-- Locations will be inserted here -->
                         </div>
                     </div>
 
                     <!-- Timer Panel -->
                     <div class="timer-panel" id="timerPanel">
-                        <div class="timer-header-text">
-                            <i class="fas fa-broadcast-tower"></i> RESERVATION_ACTIVE
+                        <div class="timer-title">
+                            <i class="fas fa-broadcast-tower"></i> Reservation Active
                         </div>
-                        <p style="color: var(--text-secondary); margin-bottom: 1rem; font-family: 'Share Tech Mono', monospace;">
-                            COUNTDOWN_INITIATED
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                            Time remaining until arrival deadline
                         </p>
                         
                         <div class="timer-countdown" id="timerCountdown">60:00</div>
@@ -2300,50 +1794,50 @@
                             <div class="timer-progress-fill" id="timerProgressFill" style="width: 100%"></div>
                         </div>
                         
-                        <div class="timer-info-panel">
-                            <div class="timer-details-grid">
+                        <div class="timer-info">
+                            <div class="timer-details">
                                 <div class="timer-detail">
-                                    <span class="timer-detail-label">LOCATION_ID:</span>
+                                    <span class="timer-detail-label">Location</span>
                                     <span class="timer-detail-value" id="timerLocation">-</span>
                                 </div>
                                 <div class="timer-detail">
-                                    <span class="timer-detail-label">FLOOR_LEVEL:</span>
+                                    <span class="timer-detail-label">Floor</span>
                                     <span class="timer-detail-value" id="timerFloor">-</span>
                                 </div>
                                 <div class="timer-detail">
-                                    <span class="timer-detail-label">SPOT_CODE:</span>
+                                    <span class="timer-detail-label">Spot</span>
                                     <span class="timer-detail-value" id="timerSpot">-</span>
                                 </div>
                                 <div class="timer-detail">
-                                    <span class="timer-detail-label">ACCESS_TIER:</span>
+                                    <span class="timer-detail-label">Tier</span>
                                     <span class="timer-detail-value" id="timerTier">-</span>
                                 </div>
                             </div>
                             <div class="timer-fee">
-                                BOOKING_FEE: ₹<span id="timerFee">650</span>
+                                Booking Fee: ₹<span id="timerFee">650</span>
                             </div>
                         </div>
                         
                         <div class="timer-actions">
-                            <button class="cyber-btn cyber-btn-secondary" onclick="cancelReservation()">
-                                <i class="fas fa-times-circle"></i> ABORT_RESERVATION
+                            <button class="btn btn-secondary" onclick="cancelReservation()">
+                                <i class="fas fa-times-circle"></i> Cancel Reservation
                             </button>
-                            <button class="cyber-btn cyber-btn-primary" onclick="simulateArrival()">
-                                <i class="fas fa-check-circle"></i> CONFIRM_ARRIVAL
+                            <button class="btn btn-primary" onclick="simulateArrival()">
+                                <i class="fas fa-check-circle"></i> Confirm Arrival
                             </button>
                         </div>
                     </div>
 
                     <!-- Success Panel -->
                     <div class="success-panel" id="successPanel">
-                        <div class="success-icon">✅</div>
-                        <div class="success-title">CHECK-IN_CONFIRMED</div>
+                        <div class="success-icon">✓</div>
+                        <div class="success-title">Check-In Confirmed</div>
                         <p class="success-message">
-                            Welcome to <strong id="successLocationName">CENTRAL_PLAZA</strong>.<br>
-                            Your parking spot is now secured. Access granted.
+                            Welcome to <strong id="successLocationName">Central Plaza</strong>. 
+                            Your parking spot is now secured and ready for use.
                         </p>
-                        <button class="cyber-btn cyber-btn-primary" onclick="rebookParking()">
-                            <i class="fas fa-redo"></i> INITIATE_NEW_BOOKING
+                        <button class="btn btn-primary" onclick="rebookParking()">
+                            <i class="fas fa-redo"></i> Reserve Another Spot
                         </button>
                     </div>
                 </div>
@@ -2351,14 +1845,14 @@
         </section>
 
         <!-- Floor Details Modal -->
-        <div class="cyber-modal" id="floorModal">
-            <div class="modal-container">
+        <div class="modal" id="floorModal">
+            <div class="modal-content">
                 <div class="modal-close" onclick="closeModal('floorModal')">
                     <i class="fas fa-times"></i>
                 </div>
                 
                 <div class="modal-header">
-                    <div class="modal-title" id="modalLocationName">CENTRAL_PLAZA</div>
+                    <div class="modal-title" id="modalLocationName">Central Plaza</div>
                     <p class="modal-subtitle">
                         <i class="fas fa-map-marker-alt"></i>
                         <span id="modalLocationAddress">MG Road, Bangalore</span>
@@ -2366,91 +1860,91 @@
                 </div>
 
                 <!-- Tier Filter -->
-                <div class="tier-filter-panel">
-                    <button class="tier-filter-btn standard active" id="filterStandard" onclick="filterByTier('standard')">
-                        <i class="fas fa-circle"></i> STANDARD_ACCESS
+                <div class="tier-filter">
+                    <button class="tier-filter-btn active" id="filterStandard" onclick="filterByTier('standard')">
+                        <i class="fas fa-circle"></i> Standard Access
                     </button>
-                    <button class="tier-filter-btn priority" id="filterPriority" onclick="filterByTier('priority')">
-                        <i class="fas fa-star"></i> PRIORITY_ACCESS
+                    <button class="tier-filter-btn" id="filterPriority" onclick="filterByTier('priority')">
+                        <i class="fas fa-star"></i> Priority Access
                     </button>
-                    <button class="tier-filter-btn vip" id="filterVip" onclick="filterByTier('vip')">
-                        <i class="fas fa-crown"></i> VIP_ACCESS
+                    <button class="tier-filter-btn" id="filterVip" onclick="filterByTier('vip')">
+                        <i class="fas fa-crown"></i> VIP Access
                     </button>
                 </div>
 
-                <div class="floors-container" id="floorsContainer">
+                <div class="floors-grid" id="floorsContainer">
                     <!-- Floors will be inserted here -->
                 </div>
 
-                <div style="margin-top: 3rem; text-align: center;">
-                    <button class="cyber-btn cyber-btn-secondary" onclick="closeModal('floorModal')">
-                        <i class="fas fa-arrow-left"></i> EXIT_SCAN
+                <div style="margin-top: 2.5rem; text-align: center;">
+                    <button class="btn btn-secondary" onclick="closeModal('floorModal')">
+                        <i class="fas fa-arrow-left"></i> Close
                     </button>
                 </div>
             </div>
         </div>
 
         <!-- Tiers Section -->
-        <section class="cyber-section" id="tiers">
+        <section class="section" id="tiers">
             <div class="container">
-                <div class="section-heading">
-                    <h2 class="section-title">ACCESS_TIERS</h2>
+                <div class="section-header">
+                    <h2 class="section-title"><span class="gradient-text">Access Tiers</span></h2>
                     <p class="section-subtitle">
-                        Different access tiers provide different parking zones and exclusive privileges.
-                        Choose your tier wisely for optimal parking experience.
+                        Different tiers provide different parking zones and exclusive benefits. 
+                        Choose the tier that best fits your requirements.
                     </p>
                 </div>
 
-                <div class="tiers-showcase">
-                    <div class="tier-showcase-card standard">
-                        <div class="tier-emoji">🟢</div>
-                        <div class="tier-title">STANDARD</div>
-                        <div class="tier-price-display">₹650<span>/booking</span></div>
-                        <ul class="tier-perks">
-                            <li><i class="fas fa-check"></i> Any available parking zone</li>
-                            <li><i class="fas fa-check"></i> 60-minute arrival protocol</li>
-                            <li><i class="fas fa-check"></i> Basic support channel</li>
+                <div class="tiers-grid">
+                    <div class="tier-card">
+                        <div class="tier-icon">🟢</div>
+                        <div class="tier-name">Standard Access</div>
+                        <div class="tier-price">₹650<span>/booking</span></div>
+                        <ul class="tier-features-list">
+                            <li><i class="fas fa-check"></i> Any available parking spot</li>
+                            <li><i class="fas fa-check"></i> 60-minute arrival window</li>
+                            <li><i class="fas fa-check"></i> Standard customer support</li>
                             <li><i class="fas fa-check"></i> GPS auto check-in</li>
                             <li><i class="fas fa-check"></i> Standard refund policy</li>
                         </ul>
-                        <button class="cyber-btn cyber-btn-secondary" style="width: 100%; margin-top: 2rem;">
-                            <i class="fas fa-parking"></i> SELECT_TIER
+                        <button class="btn btn-secondary" style="width: 100%; margin-top: 1.5rem;">
+                            <i class="fas fa-parking"></i> Select Standard
                         </button>
                     </div>
 
-                    <div class="tier-showcase-card priority featured">
-                        <div class="tier-badge-featured">MOST_POPULAR</div>
-                        <div class="tier-emoji">🟡</div>
-                        <div class="tier-title">PRIORITY</div>
-                        <div class="tier-price-display">₹1,200<span>/booking</span></div>
-                        <ul class="tier-perks">
-                            <li><i class="fas fa-check"></i> Optimized location zones</li>
+                    <div class="tier-card featured">
+                        <div class="tier-badge">Most Popular</div>
+                        <div class="tier-icon">🟡</div>
+                        <div class="tier-name">Priority Access</div>
+                        <div class="tier-price">₹1,200<span>/booking</span></div>
+                        <ul class="tier-features-list">
+                            <li><i class="fas fa-check"></i> Optimized location spots</li>
                             <li><i class="fas fa-check"></i> Extended 75-minute window</li>
                             <li><i class="fas fa-check"></i> 5-minute grace period</li>
                             <li><i class="fas fa-check"></i> Wider parking spaces</li>
-                            <li><i class="fas fa-check"></i> Priority support channel</li>
-                            <li><i class="fas fa-check"></i> Free cancellation rights</li>
+                            <li><i class="fas fa-check"></i> Priority customer support</li>
+                            <li><i class="fas fa-check"></i> Free cancellation</li>
                         </ul>
-                        <button class="cyber-btn cyber-btn-primary" style="width: 100%; margin-top: 2rem;">
-                            <i class="fas fa-star"></i> SELECT_TIER
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;">
+                            <i class="fas fa-star"></i> Select Priority
                         </button>
                     </div>
 
-                    <div class="tier-showcase-card vip-showcase">
-                        <div class="tier-emoji">🔴</div>
-                        <div class="tier-title">VIP_ULTRA</div>
-                        <div class="tier-price-display">₹2,000<span>/booking</span></div>
-                        <ul class="tier-perks">
-                            <li><i class="fas fa-check"></i> Premium entrance zones</li>
+                    <div class="tier-card">
+                        <div class="tier-icon">🔴</div>
+                        <div class="tier-name">VIP Access</div>
+                        <div class="tier-price">₹2,000<span>/booking</span></div>
+                        <ul class="tier-features-list">
+                            <li><i class="fas fa-check"></i> Premium entrance spots</li>
                             <li><i class="fas fa-check"></i> Maximum 90-minute window</li>
                             <li><i class="fas fa-check"></i> Extended 15-minute grace</li>
                             <li><i class="fas fa-check"></i> EV charging priority</li>
-                            <li><i class="fas fa-check"></i> Weather-protected spots</li>
+                            <li><i class="fas fa-check"></i> Covered parking spots</li>
                             <li><i class="fas fa-check"></i> VIP support 24/7</li>
                             <li><i class="fas fa-check"></i> Unlimited cancellation</li>
                         </ul>
-                        <button class="cyber-btn cyber-btn-secondary" style="width: 100%; margin-top: 2rem;">
-                            <i class="fas fa-crown"></i> SELECT_TIER
+                        <button class="btn btn-secondary" style="width: 100%; margin-top: 1.5rem;">
+                            <i class="fas fa-crown"></i> Select VIP
                         </button>
                     </div>
                 </div>
@@ -2460,54 +1954,54 @@
         <!-- Footer -->
         <footer>
             <div class="container">
-                <div class="footer-logo">PARKSMART_PRO</div>
+                <div class="footer-logo">ParkSmart Pro</div>
                 <p class="footer-text">
-                    Revolutionary time-locked parking protocol eliminating inefficiencies and maximizing
-                    urban mobility infrastructure for drivers and parking facility operators across the network.
+                    Advanced time-locked parking reservation system powered by intelligent automation 
+                    and real-time monitoring. Ensuring optimal efficiency for drivers and parking 
+                    facility operators across the network.
                 </p>
                 <div class="footer-divider"></div>
                 <div class="footer-bottom">
-                    <p>&copy; 2024 PARKSMART_PRO | ALL_RIGHTS_RESERVED | POWERED_BY_QUANTUM_TECH</p>
+                    <p>&copy; 2024 ParkSmart Pro. All rights reserved. Powered by intelligent systems.</p>
                 </div>
             </div>
         </footer>
     </div>
 
-    <!-- Notification Toast -->
-    <div class="cyber-toast" id="cyberToast">
-        <i class="fas fa-bell toast-icon"></i>
-        <div class="toast-content">
-            <div class="toast-title">SYSTEM_NOTIFICATION</div>
-            <div class="toast-message" id="toastMessage">Message here</div>
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-info-circle notification-icon"></i>
+        <div class="notification-content">
+            <div class="notification-title">System Notification</div>
+            <div class="notification-message" id="notificationMessage">Message here</div>
         </div>
     </div>
 
     <!-- JavaScript -->
     <script>
-        // Parking data with proper structure
+        // Parking data
         const parkingData = [
             {
                 id: 1,
-                name: 'CENTRAL_PLAZA',
+                name: 'Central Plaza',
                 address: 'MG Road, Bangalore',
                 distance: '0.3 km',
                 walkTime: '5 min',
-                totalSpots: 180,
                 rating: 4.8,
-                features: ['COVERED', '24/7_SECURITY', 'CCTV', 'VALET'],
+                features: ['Covered', '24/7 Security', 'CCTV', 'Valet'],
                 floors: [
                     {
-                        name: 'GROUND_FLOOR',
+                        name: 'Ground Floor',
                         total: 60,
                         spots: generateTieredSpots(60, 'ground')
                     },
                     {
-                        name: 'FLOOR_01',
+                        name: 'First Floor',
                         total: 60,
                         spots: generateTieredSpots(60, 'first')
                     },
                     {
-                        name: 'FLOOR_02',
+                        name: 'Second Floor',
                         total: 60,
                         spots: generateTieredSpots(60, 'second')
                     }
@@ -2515,26 +2009,25 @@
             },
             {
                 id: 2,
-                name: 'METRO_STATION_HUB',
+                name: 'Metro Station Hub',
                 address: 'Trinity Metro, Bangalore',
                 distance: '0.5 km',
                 walkTime: '8 min',
-                totalSpots: 240,
                 rating: 4.6,
-                features: ['METRO_ACCESS', 'EV_CHARGING', 'CCTV'],
+                features: ['Metro Access', 'EV Charging', 'CCTV'],
                 floors: [
                     {
-                        name: 'BASEMENT_01',
+                        name: 'Basement 1',
                         total: 80,
                         spots: generateTieredSpots(80, 'basement')
                     },
                     {
-                        name: 'GROUND_FLOOR',
+                        name: 'Ground Floor',
                         total: 80,
                         spots: generateTieredSpots(80, 'ground')
                     },
                     {
-                        name: 'FLOOR_01',
+                        name: 'First Floor',
                         total: 80,
                         spots: generateTieredSpots(80, 'first')
                     }
@@ -2542,41 +2035,40 @@
             },
             {
                 id: 3,
-                name: 'PREMIUM_GARAGE_TOWER',
+                name: 'Premium Tower Garage',
                 address: 'UB City, Bangalore',
                 distance: '0.1 km',
                 walkTime: '2 min',
-                totalSpots: 300,
                 rating: 4.9,
-                features: ['VALET', 'PREMIUM', 'EV_CHARGING', 'COVERED'],
+                features: ['Valet', 'Premium', 'EV Charging', 'Covered'],
                 floors: [
                     {
-                        name: 'GROUND_FLOOR',
+                        name: 'Ground Floor',
                         total: 50,
                         spots: generateTieredSpots(50, 'ground')
                     },
                     {
-                        name: 'LEVEL_01',
+                        name: 'Level 1',
                         total: 50,
                         spots: generateTieredSpots(50, 'first')
                     },
                     {
-                        name: 'LEVEL_02',
+                        name: 'Level 2',
                         total: 50,
                         spots: generateTieredSpots(50, 'second')
                     },
                     {
-                        name: 'LEVEL_03',
+                        name: 'Level 3',
                         total: 50,
                         spots: generateTieredSpots(50, 'third')
                     },
                     {
-                        name: 'LEVEL_04',
+                        name: 'Level 4',
                         total: 50,
                         spots: generateTieredSpots(50, 'fourth')
                     },
                     {
-                        name: 'ROOFTOP',
+                        name: 'Rooftop',
                         total: 50,
                         spots: generateTieredSpots(50, 'rooftop')
                     }
@@ -2584,31 +2076,30 @@
             },
             {
                 id: 4,
-                name: 'MALL_COMPLEX',
+                name: 'Shopping Mall Complex',
                 address: 'Orion Mall, Bangalore',
                 distance: '0.7 km',
                 walkTime: '10 min',
-                totalSpots: 400,
                 rating: 4.5,
-                features: ['MALL_ACCESS', 'FOOD_COURT', 'CCTV', 'LIFTS'],
+                features: ['Mall Access', 'Food Court', 'CCTV', 'Lifts'],
                 floors: [
                     {
-                        name: 'BASEMENT_02',
+                        name: 'Basement 2',
                         total: 100,
                         spots: generateTieredSpots(100, 'basement')
                     },
                     {
-                        name: 'BASEMENT_01',
+                        name: 'Basement 1',
                         total: 100,
                         spots: generateTieredSpots(100, 'basement')
                     },
                     {
-                        name: 'GROUND_FLOOR',
+                        name: 'Ground Floor',
                         total: 100,
                         spots: generateTieredSpots(100, 'ground')
                     },
                     {
-                        name: 'TERRACE',
+                        name: 'Terrace',
                         total: 100,
                         spots: generateTieredSpots(100, 'rooftop')
                     }
@@ -2616,31 +2107,30 @@
             },
             {
                 id: 5,
-                name: 'TECH_PARK_ZONE',
+                name: 'Tech Park Zone',
                 address: 'Manyata Tech Park, Bangalore',
                 distance: '1.2 km',
                 walkTime: '15 min',
-                totalSpots: 500,
                 rating: 4.7,
-                features: ['CORPORATE', 'EV_CHARGING', '24/7', 'CAFETERIA'],
+                features: ['Corporate', 'EV Charging', '24/7', 'Cafeteria'],
                 floors: [
                     {
-                        name: 'BASEMENT_01',
+                        name: 'Basement 1',
                         total: 125,
                         spots: generateTieredSpots(125, 'basement')
                     },
                     {
-                        name: 'GROUND_FLOOR',
+                        name: 'Ground Floor',
                         total: 125,
                         spots: generateTieredSpots(125, 'ground')
                     },
                     {
-                        name: 'LEVEL_01',
+                        name: 'Level 1',
                         total: 125,
                         spots: generateTieredSpots(125, 'first')
                     },
                     {
-                        name: 'LEVEL_02',
+                        name: 'Level 2',
                         total: 125,
                         spots: generateTieredSpots(125, 'second')
                     }
@@ -2703,7 +2193,7 @@
             };
         }
 
-        // Calculate available spots for each location
+        // Calculate availability
         parkingData.forEach(location => {
             let total = 0;
             let available = 0;
@@ -2723,7 +2213,6 @@
         let reservationTimer;
         let timeRemaining = 3600;
         let totalTime = 3600;
-        let selectedParkingData = null;
         let currentTierFilter = 'standard';
 
         // Initialize
@@ -2732,36 +2221,35 @@
             now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
             document.getElementById('dateTime').value = now.toISOString().slice(0, 16);
             
-            // Update live time
-            updateLiveTime();
-            setInterval(updateLiveTime, 1000);
+            updateSystemTime();
+            setInterval(updateSystemTime, 1000);
         });
 
-        // Live time update
-        function updateLiveTime() {
+        // Update system time
+        function updateSystemTime() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
-            document.getElementById('liveTime').textContent = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('systemTime').textContent = `${hours}:${minutes}:${seconds}`;
         }
 
         // Update tier info
         function updateTierInfo() {
             const tierSelect = document.getElementById('tierSelect').value;
             
-            document.getElementById('tierPanelStandard').classList.remove('active');
-            document.getElementById('tierPanelPriority').classList.remove('active');
-            document.getElementById('tierPanelVip').classList.remove('active');
+            document.getElementById('tierInfoStandard').classList.remove('active');
+            document.getElementById('tierInfoPriority').classList.remove('active');
+            document.getElementById('tierInfoVip').classList.remove('active');
             
             if (tierSelect === 'standard') {
-                document.getElementById('tierPanelStandard').classList.add('active');
+                document.getElementById('tierInfoStandard').classList.add('active');
                 currentTierFilter = 'standard';
             } else if (tierSelect === 'priority') {
-                document.getElementById('tierPanelPriority').classList.add('active');
+                document.getElementById('tierInfoPriority').classList.add('active');
                 currentTierFilter = 'priority';
             } else if (tierSelect === 'vip') {
-                document.getElementById('tierPanelVip').classList.add('active');
+                document.getElementById('tierInfoVip').classList.add('active');
                 currentTierFilter = 'vip';
             }
         }
@@ -2770,14 +2258,14 @@
         function searchParking() {
             const location = document.getElementById('locationInput').value;
             if (!location) {
-                showNotification('LOCATION_REQUIRED', 'Please enter a destination coordinate');
+                showNotification('Location Required', 'Please enter a destination');
                 return;
             }
 
             displayParkingLocations();
             document.getElementById('resultsSection').classList.add('active');
             document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
-            showNotification('SCAN_COMPLETE', `${parkingData.length} parking locations detected`);
+            showNotification('Scan Complete', `${parkingData.length} locations found`);
         }
 
         // Display parking locations
@@ -2788,17 +2276,17 @@
             parkingData.forEach(parking => {
                 const availabilityPercent = (parking.availableSpots / parking.totalSpots) * 100;
                 let statusClass = 'available';
-                let statusText = 'AVAILABLE';
+                let statusText = 'Available';
                 let statusIcon = 'fa-check-circle';
 
                 if (availabilityPercent < 20) {
                     statusClass = 'filling';
-                    statusText = 'FILLING_FAST';
+                    statusText = 'Filling Fast';
                     statusIcon = 'fa-bolt';
                 }
                 if (availabilityPercent === 0) {
                     statusClass = 'full';
-                    statusText = 'CAPACITY_FULL';
+                    statusText = 'Full';
                     statusIcon = 'fa-times-circle';
                 }
 
@@ -2806,8 +2294,8 @@
                 card.className = 'location-card';
                 card.onclick = () => showFloorDetails(parking);
                 card.innerHTML = `
-                    <div class="floors-badge">
-                        <i class="fas fa-building"></i> ${parking.floors.length}_FLOORS
+                    <div class="floors-indicator">
+                        <i class="fas fa-building"></i> ${parking.floors.length} Floors
                     </div>
                     <div class="location-header">
                         <div>
@@ -2816,43 +2304,39 @@
                                 <i class="fas fa-map-marker-alt"></i> ${parking.address}
                             </div>
                         </div>
-                        <div class="status-badge ${statusClass}">
+                        <div class="availability-badge ${statusClass}">
                             <i class="fas ${statusIcon}"></i> ${statusText}
                         </div>
                     </div>
                     <div class="location-details">
-                        <div class="detail-box">
-                            <i class="fas fa-route detail-icon"></i>
-                            <span class="detail-text">${parking.distance}</span>
+                        <div class="detail-item">
+                            <i class="fas fa-route"></i> ${parking.distance}
                         </div>
-                        <div class="detail-box">
-                            <i class="fas fa-walking detail-icon"></i>
-                            <span class="detail-text">${parking.walkTime}</span>
+                        <div class="detail-item">
+                            <i class="fas fa-walking"></i> ${parking.walkTime}
                         </div>
-                        <div class="detail-box">
-                            <i class="fas fa-star detail-icon"></i>
-                            <span class="detail-text">${parking.rating}_RATING</span>
+                        <div class="detail-item">
+                            <i class="fas fa-star"></i> ${parking.rating} Rating
                         </div>
-                        <div class="detail-box">
-                            <i class="fas fa-rupee-sign detail-icon"></i>
-                            <span class="detail-text">FROM_₹650</span>
+                        <div class="detail-item">
+                            <i class="fas fa-rupee-sign"></i> From ₹650
                         </div>
                     </div>
                     <div class="location-features">
                         ${parking.features.map(f => `
-                            <span class="feature-tag">
+                            <span class="feature-badge">
                                 <i class="fas fa-check"></i> ${f}
                             </span>
                         `).join('')}
                     </div>
                     <div class="location-stats">
-                        <div class="stat-box">
-                            <div class="stat-box-label">AVAILABLE</div>
-                            <div class="stat-box-value">${parking.availableSpots}/${parking.totalSpots}</div>
+                        <div class="stat-item">
+                            <div class="stat-item-label">Available Spots</div>
+                            <div class="stat-item-value">${parking.availableSpots}/${parking.totalSpots}</div>
                         </div>
-                        <div class="stat-box">
-                            <div class="stat-box-label">OCCUPANCY</div>
-                            <div class="stat-box-value">${Math.round((1 - parking.availableSpots/parking.totalSpots) * 100)}%</div>
+                        <div class="stat-item">
+                            <div class="stat-item-label">Occupancy</div>
+                            <div class="stat-item-value">${Math.round((1 - parking.availableSpots/parking.totalSpots) * 100)}%</div>
                         </div>
                     </div>
                 `;
@@ -2864,7 +2348,6 @@
 
         // Show floor details
         function showFloorDetails(parking) {
-            selectedParkingData = parking;
             document.getElementById('modalLocationName').textContent = parking.name;
             document.getElementById('modalLocationAddress').textContent = parking.address;
 
@@ -2892,34 +2375,34 @@
                 if (availPercent < 15) availClass = 'low';
 
                 const floorCard = document.createElement('div');
-                floorCard.className = 'floor-panel';
+                floorCard.className = 'floor-card';
                 
                 floorCard.innerHTML = `
-                    <div class="floor-header-row">
-                        <div class="floor-title">
+                    <div class="floor-header">
+                        <div class="floor-name">
                             <i class="fas fa-layer-group"></i> ${floor.name}
                         </div>
-                        <div class="floor-availability-badge ${availClass}">
-                            ${totalAvail}/${floor.total}_SPOTS
+                        <div class="floor-availability ${availClass}">
+                            ${totalAvail}/${floor.total} Available
                         </div>
                     </div>
 
-                    <div class="floor-stats-grid">
-                        <div class="floor-stat-item">
-                            <div class="floor-stat-label">🟢 STANDARD</div>
-                            <div class="floor-stat-value" style="color: var(--tier-standard);">
+                    <div class="floor-stats">
+                        <div class="floor-stat">
+                            <div class="floor-stat-label">Standard</div>
+                            <div class="floor-stat-value" style="color: var(--jarvis-success);">
                                 ${tierCounts.standard.available}/${tierCounts.standard.total}
                             </div>
                         </div>
-                        <div class="floor-stat-item">
-                            <div class="floor-stat-label">🟡 PRIORITY</div>
-                            <div class="floor-stat-value" style="color: var(--tier-priority);">
+                        <div class="floor-stat">
+                            <div class="floor-stat-label">Priority</div>
+                            <div class="floor-stat-value" style="color: var(--jarvis-warning);">
                                 ${tierCounts.priority.available}/${tierCounts.priority.total}
                             </div>
                         </div>
-                        <div class="floor-stat-item">
-                            <div class="floor-stat-label">🔴 VIP</div>
-                            <div class="floor-stat-value" style="color: var(--tier-vip);">
+                        <div class="floor-stat">
+                            <div class="floor-stat-label">VIP</div>
+                            <div class="floor-stat-value" style="color: var(--jarvis-gold);">
                                 ${tierCounts.vip.available}/${tierCounts.vip.total}
                             </div>
                         </div>
@@ -2929,7 +2412,7 @@
                         ${floor.spots.map(spot => `
                             <div class="parking-spot ${spot.status} tier-${spot.tier} ${spot.tier !== currentTierFilter ? 'hidden' : ''}" 
                                  onclick="${spot.status === 'available' ? `selectSpot('${parking.name}', '${floor.name}', '${spot.number}', ${spot.price}, '${spot.tier}')` : 'return false;'}">
-                                <div class="tier-indicator ${spot.tier}"></div>
+                                <div class="tier-dot ${spot.tier}"></div>
                                 <div class="spot-icon">
                                     ${spot.status === 'available' ? '<i class="fas fa-parking"></i>' : 
                                       spot.status === 'occupied' ? '<i class="fas fa-car"></i>' : 
@@ -2942,16 +2425,16 @@
 
                     <div class="spots-legend">
                         <div class="legend-item">
-                            <div class="legend-indicator tier-standard"></div>
-                            <span>STANDARD (₹650)</span>
+                            <div class="legend-box standard"></div>
+                            <span>Standard (₹650)</span>
                         </div>
                         <div class="legend-item">
-                            <div class="legend-indicator tier-priority"></div>
-                            <span>PRIORITY (₹1,200)</span>
+                            <div class="legend-box priority"></div>
+                            <span>Priority (₹1,200)</span>
                         </div>
                         <div class="legend-item">
-                            <div class="legend-indicator tier-vip"></div>
-                            <span>VIP_ULTRA (₹2,000)</span>
+                            <div class="legend-box vip"></div>
+                            <span>VIP (₹2,000)</span>
                         </div>
                     </div>
                 `;
@@ -2984,12 +2467,12 @@
         // Select spot
         function selectSpot(locationName, floorName, spotNumber, price, tier) {
             const tierNames = {
-                'standard': 'STANDARD',
-                'priority': 'PRIORITY',
-                'vip': 'VIP_ULTRA'
+                'standard': 'Standard',
+                'priority': 'Priority',
+                'vip': 'VIP'
             };
             
-            if (confirm(`CONFIRM BOOKING?\n\nSpot: ${spotNumber}\nTier: ${tierNames[tier]}\nLocation: ${floorName}, ${locationName}\nFee: ₹${price}`)) {
+            if (confirm(`Confirm Booking?\n\nSpot: ${spotNumber}\nTier: ${tierNames[tier]}\nLocation: ${floorName}, ${locationName}\nFee: ₹${price}`)) {
                 document.getElementById('timerLocation').textContent = locationName;
                 document.getElementById('timerFloor').textContent = floorName;
                 document.getElementById('timerSpot').textContent = spotNumber;
@@ -2998,15 +2481,14 @@
                 
                 closeModal('floorModal');
                 
-                // Hide sections
                 document.getElementById('resultsSection').style.display = 'none';
-                document.querySelector('.cyber-form').style.display = 'none';
+                document.querySelector('.interface-form').style.display = 'none';
                 
                 document.getElementById('timerPanel').classList.add('active');
                 document.getElementById('timerPanel').scrollIntoView({ behavior: 'smooth' });
                 
                 startTimer(tier);
-                showNotification('BOOKING_CONFIRMED', `Reservation locked for ${spotNumber}`);
+                showNotification('Booking Confirmed', `Reservation locked for ${spotNumber}`);
             }
         }
 
@@ -3039,13 +2521,13 @@
 
                 if (timeRemaining === 600) {
                     timerPanel.classList.add('danger');
-                    showNotification('WARNING', '⚠️ Only 10 minutes remaining!');
+                    showNotification('Warning', '⚠️ Only 10 minutes remaining!');
                 }
 
                 if (timeRemaining <= 0) {
                     clearInterval(reservationTimer);
                     const penalty = parseFloat(document.getElementById('timerFee').textContent) * 0.3;
-                    alert(`⚠️ TIME EXPIRED!\n\nReservation auto-cancelled.\nPenalty fee charged: ₹${penalty.toFixed(0)}\n\nSpot released to network.`);
+                    alert(`Time Expired!\n\nReservation auto-cancelled.\nPenalty fee: ₹${penalty.toFixed(0)}\n\nSpot released.`);
                     resetTimer();
                 }
             }, 1000);
@@ -3053,11 +2535,11 @@
 
         // Cancel reservation
         function cancelReservation() {
-            if (confirm('ABORT RESERVATION?\n\nRefund amount depends on timing.')) {
+            if (confirm('Cancel reservation? Refund depends on timing.')) {
                 clearInterval(reservationTimer);
                 const fee = parseFloat(document.getElementById('timerFee').textContent);
                 const refund = fee * 0.7;
-                alert(`✓ Reservation aborted.\n\nRefund processed: ₹${refund.toFixed(0)}`);
+                alert(`Reservation cancelled.\n\nRefund: ₹${refund.toFixed(0)}`);
                 resetTimer();
             }
         }
@@ -3070,13 +2552,13 @@
             document.getElementById('timerPanel').style.display = 'none';
             document.getElementById('successPanel').classList.add('active');
             document.getElementById('successPanel').scrollIntoView({ behavior: 'smooth' });
-            showNotification('CHECK-IN_CONFIRMED', '✅ Access granted! Welcome.');
+            showNotification('Check-In Confirmed', '✓ Access granted. Welcome!');
         }
 
         // Rebook parking
         function rebookParking() {
             document.getElementById('successPanel').classList.remove('active');
-            document.querySelector('.cyber-form').style.display = 'flex';
+            document.querySelector('.interface-form').style.display = 'flex';
             
             document.getElementById('locationInput').value = '';
             const now = new Date();
@@ -3089,7 +2571,7 @@
             document.getElementById('timerPanel').classList.remove('active', 'danger');
             
             document.getElementById('reserve').scrollIntoView({ behavior: 'smooth' });
-            showNotification('SYSTEM_READY', 'Ready for new reservation');
+            showNotification('System Ready', 'Ready for new reservation');
         }
 
         // Reset timer
@@ -3098,7 +2580,7 @@
             timeRemaining = totalTime;
             document.getElementById('timerPanel').classList.remove('active', 'danger');
             document.getElementById('timerProgressFill').style.width = '100%';
-            document.querySelector('.cyber-form').style.display = 'flex';
+            document.querySelector('.interface-form').style.display = 'flex';
             document.getElementById('resultsSection').classList.remove('active');
         }
 
@@ -3113,7 +2595,7 @@
             document.body.style.overflow = 'auto';
         }
 
-        document.querySelectorAll('.cyber-modal').forEach(modal => {
+        document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     closeModal(modal.id);
@@ -3123,13 +2605,13 @@
 
         // Show notification
         function showNotification(title, message) {
-            const toast = document.getElementById('cyberToast');
-            toast.querySelector('.toast-title').textContent = title;
-            toast.querySelector('.toast-message').textContent = message;
-            toast.classList.add('active');
+            const notification = document.getElementById('notification');
+            notification.querySelector('.notification-title').textContent = title;
+            notification.querySelector('.notification-message').textContent = message;
+            notification.classList.add('active');
             
             setTimeout(() => {
-                toast.classList.remove('active');
+                notification.classList.remove('active');
             }, 4000);
         }
 
